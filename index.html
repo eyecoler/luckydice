@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#040d0a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='14' fill='%23fbf6ea' stroke='%23b8862b' stroke-width='4'/%3E%3Ccircle cx='20' cy='20' r='6' fill='%2316110c'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23b3122a'/%3E%3Ccircle cx='44' cy='44' r='6' fill='%2316110c'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="thumb.png">
+
+<title>럭키 다이스</title>
+<meta property="og:title" content="럭키 다이스">
+<meta property="og:description" content="폰을 흔들면 주사위가 굴러가요 · 앱 제작 문의 010-5198-1500">
+<meta property="og:type" content="website">
+
+<meta property="og:url" content="https://eyecoler.github.io/luckydice/">
+<meta property="og:image" content="https://eyecoler.github.io/luckydice/thumb.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<style>*{box-sizing:border-box}:root{padding-top:env(safe-area-inset-top,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<meta name="description" content="폰을 흔들면 카지노 BGM과 함께 주사위가 굴러가는 웹앱">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Nanum+Myeongjo:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --night:#040d0a;
+  --emerald:#0b3a2c;
+  --emerald-hi:#15644b;
+  --gold-1:#fff1c1;
+  --gold-2:#e9c46a;
+  --gold-3:#b8862b;
+  --gold-4:#6e4b12;
+  --ivory:#fbf6ea;
+  --ink:#16110c;
+  --ruby:#b3122a;
+  --text:#f1ede2;
+  --muted:#a6b8ae;
+  --hair:rgba(233,196,106,.42);
+  --foil:linear-gradient(115deg,var(--gold-3) 0%,var(--gold-1) 22%,var(--gold-2) 40%,var(--gold-3) 58%,var(--gold-1) 78%,var(--gold-2) 100%);
+  --serif-en:"Cinzel","Times New Roman",serif;
+  --serif-ko:"Nanum Myeongjo","AppleMyungjo","Batang",serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+}
+html,body{height:100%}
+body{
+  background-color:var(--night);
+  background-image:
+    radial-gradient(ellipse 70% 45% at 50% 38%, rgba(21,100,75,.85) 0%, rgba(11,58,44,.9) 45%, rgba(4,13,10,1) 100%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-blend-mode:normal;
+  color:var(--text);
+  font-family:var(--body);
+  font-size:15px;
+  overflow-x:hidden;
+}
+body::before{ /* felt grain over the glow */
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.18;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.5'/></svg>");
+  mix-blend-mode:overlay;
+}
+.app{
+  position:relative;z-index:1;
+  min-height:100%;
+  display:flex;flex-direction:column;
+  padding-inline:16px;
+  padding-block:14px 104px;
+  max-width:500px;margin:0 auto;
+  box-sizing:border-box;
+}
+
+/* ── top bar ── */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.flags{
+  display:flex;gap:7px;align-items:center;padding:6px 10px;border-radius:999px;
+  background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.25));
+  border:1px solid var(--hair);
+}
+.flags svg{display:block;height:17px;width:auto;border-radius:2px;box-shadow:0 0 0 .5px rgba(255,255,255,.25),0 2px 4px rgba(0,0,0,.4)}
+.flags .np{height:21px;box-shadow:none;filter:drop-shadow(0 2px 2px rgba(0,0,0,.4))}
+.ghost{
+  appearance:none;cursor:pointer;
+  border:1px solid var(--hair);background:rgba(0,0,0,.3);
+  color:var(--gold-2);font:500 12.5px var(--body);letter-spacing:.02em;
+  padding:8px 14px;border-radius:999px;white-space:nowrap;flex:none;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.ghost svg{width:15px;height:15px}
+button:focus-visible,a:focus-visible{outline:2px solid var(--gold-2);outline-offset:3px}
+
+/* ── title ── */
+.title{text-align:center;margin-top:26px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.orn{display:flex;align-items:center;gap:10px;color:var(--gold-2);font:500 10.5px var(--serif-en);letter-spacing:.42em;padding-left:.42em}
+.orn::before,.orn::after{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-2))}
+.orn::after{transform:scaleX(-1)}
+.title h1{
+  margin:0;font-family:var(--serif-ko);font-weight:800;
+  font-size:clamp(40px,12.5vw,58px);line-height:1.05;letter-spacing:-.01em;
+  background:var(--foil);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 2px 0 rgba(0,0,0,.55)) drop-shadow(0 10px 22px rgba(0,0,0,.5));
+  animation:foil 7s ease-in-out infinite alternate;
+  text-wrap:balance;
+}
+@keyframes foil{from{background-position:0% 50%}to{background-position:100% 50%}}
+.title .en{font:700 12px var(--serif-en);letter-spacing:.5em;color:rgba(241,237,226,.55);padding-left:.5em}
+
+/* ── table ── */
+.table{
+  position:relative;margin-top:24px;
+  padding:40px 18px 28px;
+  border-radius:200px 200px 26px 26px / 110px 110px 26px 26px;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 30%, rgba(30,120,90,.55), rgba(8,44,33,.2) 70%),
+    linear-gradient(180deg,rgba(9,52,39,.9),rgba(5,28,21,.95));
+  box-shadow:
+    0 0 0 1px var(--gold-3),
+    0 0 0 5px rgba(0,0,0,.55),
+    0 0 0 6px var(--gold-4),
+    0 30px 60px rgba(0,0,0,.55),
+    inset 0 0 70px rgba(0,0,0,.55);
+  display:flex;flex-direction:column;align-items:center;gap:20px;
+}
+.table::before{ /* inner hairline */
+  content:"";position:absolute;inset:9px;pointer-events:none;
+  border-radius:190px 190px 18px 18px / 102px 102px 18px 18px;
+  border:1px solid rgba(233,196,106,.22);
+}
+.corner{position:absolute;bottom:14px;width:14px;height:14px;pointer-events:none}
+.corner.l{left:14px}.corner.r{right:14px;transform:scaleX(-1)}
+
+.dice-row{display:flex;gap:30px;justify-content:center;perspective:760px;min-height:132px;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.die-wrap{width:100px;height:100px;position:relative}
+.die-wrap::after{
+  content:"";position:absolute;left:6%;right:6%;bottom:-22px;height:16px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(0,0,0,.6),transparent);
+}
+.die{width:100%;height:100%;position:relative;transform-style:preserve-3d;transform:rotateX(-18deg) rotateY(24deg)}
+.face{
+  position:absolute;inset:0;border-radius:18px;box-sizing:border-box;padding:15px;
+  background:
+    radial-gradient(circle at 28% 22%, #ffffff 0%, rgba(255,255,255,0) 42%),
+    linear-gradient(145deg,#fffaf0 0%,var(--ivory) 45%,#e6dcc4 100%);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(184,134,43,.55),
+    inset 0 0 0 4px rgba(255,255,255,.55),
+    inset 0 -8px 14px rgba(110,75,18,.16);
+  display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);
+  backface-visibility:hidden;
+}
+.pip{
+  width:17px;height:17px;border-radius:50%;align-self:center;justify-self:center;
+  background:radial-gradient(circle at 35% 30%,#4a3f36,#0d0a07 70%);
+  box-shadow:inset 0 2px 3px rgba(0,0,0,.7),0 1px 0 rgba(255,255,255,.8);
+}
+.f1 .pip{width:26px;height:26px;background:radial-gradient(circle at 35% 30%,#ff5a6e,var(--ruby) 55%,#5b0612);box-shadow:inset 0 2px 4px rgba(0,0,0,.45),0 1px 0 rgba(255,255,255,.8),0 0 0 2px rgba(184,134,43,.5)}
+.f1{transform:translateZ(50px)}
+.f6{transform:rotateY(180deg) translateZ(50px)}
+.f3{transform:rotateY(90deg) translateZ(50px)}
+.f4{transform:rotateY(-90deg) translateZ(50px)}
+.f2{transform:rotateX(90deg) translateZ(50px)}
+.f5{transform:rotateX(-90deg) translateZ(50px)}
+
+.status{text-align:center;min-height:104px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.big{
+  font-family:var(--serif-en);font-weight:900;font-size:84px;line-height:1;
+  font-variant-numeric:tabular-nums lining-nums;
+  background:var(--foil);background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 3px 0 rgba(0,0,0,.6)) drop-shadow(0 0 22px rgba(233,196,106,.28));
+}
+.big.pop{animation:pop .6s cubic-bezier(.2,1.5,.4,1), foil 2.4s ease-in-out}
+@keyframes pop{0%{transform:scale(.3);opacity:0}100%{transform:scale(1);opacity:1}}
+.sub{color:var(--muted);font-size:13px;letter-spacing:.02em}
+.sub.win{color:var(--gold-1);font-family:var(--serif-ko);font-weight:700;font-size:16px}
+.table.shaking .dice-row{animation:shake .11s linear infinite}
+@keyframes shake{0%{transform:translate(0,0)}25%{transform:translate(-2px,1px)}50%{transform:translate(2px,-1px)}75%{transform:translate(-1px,-2px)}100%{transform:translate(0,0)}}
+
+.controls{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%}
+.seg{display:inline-flex;padding:3px;border:1px solid var(--hair);border-radius:999px;background:rgba(0,0,0,.35)}
+.seg button{appearance:none;border:0;background:transparent;color:var(--muted);font:500 13px var(--body);padding:7px 16px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--foil);background-size:200% 100%;color:var(--ink);font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.roll-btn{
+  position:relative;overflow:hidden;
+  appearance:none;border:0;cursor:pointer;width:100%;max-width:300px;
+  font:700 19px var(--serif-ko);letter-spacing:.12em;color:var(--ink);
+  padding:17px 20px;border-radius:999px;
+  background:var(--foil);background-size:220% 100%;background-position:30% 50%;
+  box-shadow:0 0 0 1px var(--gold-4), 0 0 0 4px rgba(0,0,0,.35), 0 0 0 5px rgba(233,196,106,.35), 0 14px 30px rgba(0,0,0,.5);
+  transition:transform .12s, background-position .6s;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.roll-btn svg{width:20px;height:20px}
+.roll-btn::after{ /* light sweep */
+  content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);
+  transform:skewX(-20deg);animation:sweep 3.6s ease-in-out infinite;
+}
+@keyframes sweep{0%,60%{left:-60%}100%{left:130%}}
+.roll-btn:hover{background-position:70% 50%}
+.roll-btn:active{transform:translateY(2px) scale(.99)}
+.roll-btn:disabled{cursor:default;filter:saturate(.5) brightness(.75)}
+.roll-btn:disabled::after{animation:none}
+.hint{font-size:12px;color:var(--muted);text-align:center;max-width:30ch;line-height:1.55;margin:0}
+
+/* ── stats ── */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:22px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.stat{text-align:center;padding:14px 6px}
+.stat + .stat{border-left:1px solid rgba(233,196,106,.2)}
+.stat b{display:block;font:700 24px var(--serif-en);color:var(--gold-1);font-variant-numeric:tabular-nums lining-nums}
+.stat span{font-size:11px;color:var(--muted);letter-spacing:.08em}
+.history-wrap{margin-top:16px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.history-wrap .lbl{font:500 10px var(--serif-en);letter-spacing:.36em;color:rgba(233,196,106,.7);padding-left:.36em}
+.history{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;min-height:30px}
+.history i{
+  font-style:normal;font:700 13px var(--serif-en);font-variant-numeric:tabular-nums lining-nums;
+  color:var(--gold-2);min-width:30px;height:30px;padding:0 6px;box-sizing:border-box;
+  display:grid;place-items:center;border-radius:50%;
+  border:1px dashed rgba(233,196,106,.55);background:rgba(0,0,0,.3);
+}
+.history i.wide{border-radius:15px}
+.history i:first-child{background:var(--foil);background-size:200% 100%;color:var(--ink);border-style:solid;border-color:var(--gold-4)}
+.history .empty{font-size:12px;color:rgba(166,184,174,.6)}
+
+/* ── footbar ── */
+.foot{
+  position:fixed;left:0;right:0;bottom:0;z-index:5;
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));
+  background:linear-gradient(180deg,rgba(6,16,12,.88),rgba(2,8,6,.97));
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-top:1px solid var(--hair);
+}
+.foot-in{max-width:500px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.dev{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--text);min-width:0}
+.coin{
+  flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+  background:var(--foil);background-size:200% 100%;
+  box-shadow:0 0 0 1px var(--gold-4),inset 0 0 0 3px rgba(255,255,255,.25),0 4px 10px rgba(0,0,0,.4);
+}
+.coin svg{width:19px;height:19px}
+.dev small{display:block;font-size:10.5px;color:var(--muted);letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dev strong{display:block;font:700 17px var(--serif-en);letter-spacing:.04em;color:var(--gold-1);font-variant-numeric:tabular-nums lining-nums;user-select:all}
+
+#fx{position:fixed;inset:0;pointer-events:none;z-index:4;width:100%;height:100%}
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:var(--ivory);color:var(--ink);font:600 13px var(--body);padding:9px 16px;border-radius:999px;z-index:6;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+
+@media (prefers-reduced-motion: reduce){
+  .table.shaking .dice-row,.big.pop,.title h1,.roll-btn::after{animation:none}
+}
+</style>
+<!-- 이용자 수 집계: goatcounter.com 가입 후 아래 줄의 주석을 풀고 YOURCODE를 본인 코드로 바꾸기
+<script data-goatcounter="https://YOURCODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+-->
+</head>
+<body>
+
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<div class="app">
+  <header class="top">
+    <div class="flags" aria-label="대한민국, 네팔, 캄보디아 국기">
+      <svg viewBox="-36 -24 72 48" role="img" aria-label="대한민국">
+        <rect x="-36" y="-24" width="72" height="48" fill="#fff"/>
+        <g transform="rotate(-56.3099)">
+          <g id="tg-bars"><path id="tg-b" d="M-6-25H6M-6-22H6M-6-19H6" stroke="#000" stroke-width="2"/><use href="#tg-b" y="44"/></g>
+          <path stroke="#fff" stroke-width="1" d="M0,17v10"/>
+          <circle fill="#cd2e3a" r="12"/>
+          <path fill="#0047a0" d="M0-12A6,6 0 0 0 0,0A6,6 0 0 1 0,12A12,12 0 0 1 0-12Z"/>
+        </g>
+        <g transform="rotate(-123.6901)">
+          <use href="#tg-bars"/>
+          <path stroke="#fff" stroke-width="1" d="M0-23.5v3M0,17v3.5M0,23.5v3"/>
+        </g>
+      </svg>
+      <svg class="np" viewBox="0 0 26 32" role="img" aria-label="네팔">
+        <path d="M1 1 L24 15 H9.5 L24 30 H1 Z" fill="#dc143c" stroke="#003893" stroke-width="2"/>
+        <path d="M5 9.2a3.4 3.4 0 0 0 6.8 0a3.4 2.4 0 0 1-6.8 0z" fill="#fff"/>
+        <circle cx="8.4" cy="8.6" r="1.3" fill="#fff"/>
+        <g fill="#fff"><circle cx="8" cy="22.5" r="2.4"/>
+          <path d="M8 18.4l.7 1.6 1.6-.9-.3 1.8 1.8.3-1.3 1.3 1.3 1.3-1.8.3.3 1.8-1.6-.9L8 26.6l-.7-1.6-1.6.9.3-1.8-1.8-.3 1.3-1.3-1.3-1.3 1.8-.3-.3-1.8 1.6.9z"/></g>
+      </svg>
+      <svg viewBox="0 0 60 40" role="img" aria-label="캄보디아">
+        <rect width="60" height="40" fill="#032ea1"/>
+        <rect y="10" width="60" height="20" fill="#e00025"/>
+        <path fill="#fff" d="M16 27h28v-2h-2v-3h-2v-3l-1-1v-3l-1-2-1 2v3l-1 1v2h-2v-3l-1-1v-4l-1-3-1 3v4l-1 1v3h-2v-2l-1-1v-3l-1-2-1 2v3l-1 1v3h-2v3h-2z"/>
+      </svg>
+    </div>
+    <button class="ghost" id="soundBtn" type="button" aria-pressed="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor" stroke="none"/><path id="wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+      <span id="soundTxt">소리 ON</span>
+    </button>
+  </header>
+
+  <div class="title">
+    <div class="orn">GRAND CASINO</div>
+    <h1>럭키 다이스</h1>
+    <div class="en">SHAKE · ROLL · WIN</div>
+  </div>
+
+  <section class="table" id="table">
+    <div class="dice-row" id="diceRow" role="button" tabindex="0" aria-label="주사위 굴리기"></div>
+    <div class="status" aria-live="polite">
+      <div class="big" id="big">?</div>
+      <div class="sub" id="sub">폰을 흔들거나 버튼을 눌러</div>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="주사위 개수">
+        <button type="button" id="n1" aria-pressed="true">주사위 1개</button>
+        <button type="button" id="n2" aria-pressed="false">주사위 2개</button>
+      </div>
+      <button class="roll-btn" id="rollBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="#16110c" stroke-width="1.8"/><circle cx="8" cy="8" r="1.6" fill="#16110c"/><circle cx="12" cy="12" r="1.6" fill="#16110c"/><circle cx="16" cy="16" r="1.6" fill="#16110c"/></svg>
+        굴리기
+      </button>
+      <button class="ghost" id="motionBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="8" y="3" width="8" height="18" rx="2"/><path d="M4 8v8M20 8v8"/></svg>
+        <span id="motionTxt">흔들기 모드 켜기</span>
+      </button>
+      <p class="hint" id="hint">흔들기 모드를 한 번 켜두면, 폰만 흔들어도 주사위가 굴러가.</p>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat"><b id="sMine">0</b><span>내 굴림</span></div>
+    <div class="stat"><b id="sBest">–</b><span>최고 숫자</span></div>
+    <div class="stat"><b id="sSix">0</b><span>행운 횟수</span></div>
+  </div>
+  <div class="history-wrap">
+    <div class="lbl">RECENT</div>
+    <div class="history" id="history" aria-label="최근 결과"><span class="empty">아직 굴린 기록이 없어</span></div>
+  </div>
+</div>
+
+<footer class="foot">
+  <div class="foot-in">
+    <a class="dev" href="tel:01051981500" aria-label="장보성에게 전화하기 010-5198-1500">
+      <span class="coin"><svg viewBox="0 0 24 24" fill="#16110c" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg></span>
+      <span style="min-width:0"><small>디지털프로파일러 장보성 · 앱 제작 문의</small><strong>010-5198-1500</strong></span>
+    </a>
+    <button class="ghost" id="copyBtn" type="button">번호 복사</button>
+  </div>
+</footer>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+  const PIPS = {1:[5],2:[1,9],3:[1,5,9],4:[1,3,7,9],5:[1,3,5,7,9],6:[1,3,4,6,7,9]};
+  const FACE_ROT = {1:[0,0],6:[0,180],3:[0,-90],4:[0,90],2:[-90,0],5:[90,0]};
+  const reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const ROLL_MS = 3000;
+  const VOLUME = 0.83; // 1.5x of previous 0.55
+
+  const $ = id => document.getElementById(id);
+  const row = $('diceRow'), big = $('big'), sub = $('sub'), table = $('table');
+  let count = 1, rolling = false, soundOn = true, dice = [];
+  let mine = 0, history = [];
+
+  function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  let deviceId = lsGet('ld_id');
+  if(!deviceId){deviceId = 'd'+Math.random().toString(36).slice(2,10)+Date.now().toString(36); lsSet('ld_id',deviceId)}
+  mine = parseInt(lsGet('ld_mine')||'0',10)||0;
+  $('sMine').textContent = mine;
+
+  // ---------- dice ----------
+  function makeDie(){
+    const wrap = document.createElement('div'); wrap.className='die-wrap';
+    const d = document.createElement('div'); d.className='die';
+    for(let n=1;n<=6;n++){
+      const f=document.createElement('div'); f.className='face f'+n;
+      for(let c=1;c<=9;c++){const cell=document.createElement('span'); if(PIPS[n].includes(c)) cell.className='pip'; f.appendChild(cell)}
+      d.appendChild(f);
+    }
+    wrap.appendChild(d); row.appendChild(wrap);
+    return {el:d, rx:-18, ry:24};
+  }
+  function buildDice(){
+    row.innerHTML=''; dice=[];
+    for(let i=0;i<count;i++) dice.push(makeDie());
+    if(count===2){dice[1].el.style.transform='rotateX(-20deg) rotateY(-28deg)'; dice[1].rx=-20; dice[1].ry=-28}
+  }
+  buildDice();
+
+  function setCount(n){
+    if(rolling) return;
+    count=n; $('n1').setAttribute('aria-pressed', n===1); $('n2').setAttribute('aria-pressed', n===2);
+    buildDice(); big.textContent='?'; sub.textContent='폰을 흔들거나 버튼을 눌러'; sub.classList.remove('win');
+  }
+  $('n1').onclick=()=>setCount(1); $('n2').onclick=()=>setCount(2);
+
+  // ---------- audio ----------
+  let ac=null, master=null;
+  function audio(){ try{ return audioInner() }catch(e){ return null } }
+  function audioInner(){
+    if(!ac){
+      const AC = window.AudioContext||window.webkitAudioContext; if(!AC) return null;
+      ac=new AC();
+      const comp=ac.createDynamicsCompressor();
+      comp.threshold.value=-10; comp.knee.value=6; comp.ratio.value=4;
+      master=ac.createGain(); master.gain.value=VOLUME;
+      master.connect(comp); comp.connect(ac.destination);
+    }
+    if(ac.state==='suspended'){ const p=ac.resume(); if(p&&p.catch) p.catch(()=>{}) }
+    return ac;
+  }
+  function tone(freq,t,dur,type,vol){
+    const o=ac.createOscillator(), g=ac.createGain();
+    o.type=type; o.frequency.setValueAtTime(freq,t);
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+.008);
+    g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t+dur+.02);
+  }
+  let noiseBuf=null;
+  function click(t,vol){
+    if(!noiseBuf){noiseBuf=ac.createBuffer(1,ac.sampleRate*.04,ac.sampleRate); const d=noiseBuf.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3)}
+    const s=ac.createBufferSource(), f=ac.createBiquadFilter(), g=ac.createGain();
+    s.buffer=noiseBuf; f.type='bandpass'; f.frequency.value=2500+Math.random()*2500; f.Q.value=2;
+    g.gain.value=vol; s.connect(f); f.connect(g); g.connect(master); s.start(t);
+  }
+  const hz = m => 440*Math.pow(2,(m-69)/12);
+  function playRollMusic(){
+    if(!soundOn||!audio()) return;
+    const t0=ac.currentTime+.03, step=.125;
+    const bars=[[60,64,67,72],[65,69,72,77],[67,71,74,79]];
+    const steps=Math.floor((ROLL_MS/1000)/step);
+    for(let i=0;i<steps;i++){
+      const bar=bars[Math.min(bars.length-1,Math.floor(i/8))];
+      const seq=[0,1,2,3,2,1,2,3];
+      const t=t0+i*step;
+      tone(hz(bar[seq[i%8]]+12),t,.11,'square',.05);
+      if(i%4===0) tone(hz(bar[0]-24),t,.22,'triangle',.22);
+      if(i%2===1) tone(hz(bar[2]),t,.06,'sawtooth',.018);
+      const k=Math.max(1,Math.round(3*(1-i/steps)));
+      for(let r=0;r<k;r++) click(t+Math.random()*step,.35*(1-i/steps)+.05);
+    }
+  }
+  function playWin(big){
+    if(!soundOn||!audio()) return;
+    const t=ac.currentTime+.02;
+    [79,84,88,91].forEach((m,i)=>tone(hz(m),t+i*.08,.35,'square',.06));
+    tone(hz(96),t+.34,.9,'sine',.12); tone(hz(103),t+.34,.9,'sine',.06);
+    if(big){[91,96,100,103,108].forEach((m,i)=>tone(hz(m),t+.6+i*.07,.3,'triangle',.08))}
+    click(t,.4);
+  }
+  $('soundBtn').onclick=()=>{
+    soundOn=!soundOn; $('soundTxt').textContent= soundOn?'소리 ON':'소리 OFF';
+    $('wave').style.opacity = soundOn?1:.15;
+    $('soundBtn').setAttribute('aria-pressed',soundOn); if(soundOn) audio();
+  };
+
+  // ---------- gold confetti ----------
+  const fx=$('fx'), ctx=fx.getContext('2d'); let parts=[], raf=0;
+  function sizeFx(){const r=window.devicePixelRatio||1; fx.width=innerWidth*r; fx.height=innerHeight*r; ctx.setTransform(r,0,0,r,0,0)}
+  sizeFx(); addEventListener('resize',sizeFx);
+  function burst(n){
+    if(reduce) return;
+    const b=big.getBoundingClientRect(), cx=b.left+b.width/2, cy=b.top+b.height/2;
+    const cols=['#fff1c1','#e9c46a','#b8862b','#fbf6ea'];
+    for(let i=0;i<n;i++){
+      const a=Math.random()*Math.PI*2, v=3+Math.random()*6;
+      parts.push({x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v-4,s:3+Math.random()*4,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[i%4],life:70+Math.random()*40});
+    }
+    if(!raf) raf=requestAnimationFrame(tick);
+  }
+  function tick(){
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    parts=parts.filter(p=>p.life>0);
+    parts.forEach(p=>{
+      p.vy+=.22; p.vx*=.985; p.x+=p.vx; p.y+=p.vy; p.r+=p.vr; p.life--;
+      ctx.save(); ctx.globalAlpha=Math.min(1,p.life/30); ctx.translate(p.x,p.y); ctx.rotate(p.r);
+      ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2); ctx.restore();
+    });
+    raf = parts.length ? requestAnimationFrame(tick) : 0;
+    if(!raf) ctx.clearRect(0,0,innerWidth,innerHeight);
+  }
+
+  // ---------- roll ----------
+  function roll(){
+    if(rolling) return;
+    rolling=true; $('rollBtn').disabled=true;
+    try{ playRollMusic() }catch(e){}
+    const results = dice.map(()=>1+Math.floor(Math.random()*6));
+    big.classList.remove('pop'); big.textContent='3'; sub.textContent='굴러간다…'; sub.classList.remove('win');
+    table.classList.add('shaking');
+    let left=3; const cd=setInterval(()=>{left--; if(left>0) big.textContent=left;},1000);
+
+    dice.forEach((d,i)=>{
+      d.el.style.transition='none';
+      d.el.style.transform=`rotateX(${d.rx}deg) rotateY(${d.ry}deg)`;
+      void d.el.offsetWidth;
+      const [tx,ty]=FACE_ROT[results[i]];
+      const turnsX = reduce?1:(3+Math.floor(Math.random()*3)), turnsY = reduce?1:(3+Math.floor(Math.random()*3));
+      const baseX = Math.ceil(d.rx/360)*360, baseY = Math.ceil(d.ry/360)*360;
+      d.rx = baseX + turnsX*360 + tx; d.ry = baseY + turnsY*360 + ty;
+      d.el.style.transition=`transform ${ROLL_MS}ms cubic-bezier(.15,.7,.25,1)`;
+      d.el.style.transform=`rotateX(${d.rx}deg) rotateY(${d.ry}deg)`;
+    });
+
+    setTimeout(()=>{
+      clearInterval(cd); table.classList.remove('shaking');
+      const total=results.reduce((a,b)=>a+b,0);
+      const isDouble = results.length===2 && results[0]===results[1];
+      const jackpot = isDouble || total===6 && results.length===1;
+      big.textContent = total; void big.offsetWidth; big.classList.add('pop');
+      if(results.length===2){
+        sub.textContent = isDouble ? `${results[0]} · ${results[1]}  더블!` : `${results[0]} + ${results[1]}`;
+      } else {
+        sub.textContent = total===6 ? '최고 숫자, 6!' : total===1 ? '빨간 1 · 행운의 점' : '결과';
+      }
+      sub.classList.toggle('win', jackpot);
+      try{ playWin(jackpot) }catch(e){}
+      burst(jackpot?90:36);
+      history.unshift(results.length===2?`${results[0]}+${results[1]}`:String(total)); history=history.slice(0,8);
+      $('history').innerHTML = history.map(h=>`<i class="${h.length>1?'wide':''}">${h}</i>`).join('');
+      mine++; lsSet('ld_mine',String(mine)); $('sMine').textContent=mine;
+      rolling=false; $('rollBtn').disabled=false;
+      saveVisit(total,jackpot);
+    }, ROLL_MS);
+  }
+  $('rollBtn').onclick=roll;
+  row.addEventListener('click',roll);
+  row.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();roll()}});
+
+  // ---------- shake ----------
+  let lastShake=0, motionOn=false, prev=null;
+  function onMotion(e){
+    const a=e.accelerationIncludingGravity||e.acceleration; if(!a) return;
+    const cur={x:a.x||0,y:a.y||0,z:a.z||0};
+    if(prev){
+      const delta=Math.abs(cur.x-prev.x)+Math.abs(cur.y-prev.y)+Math.abs(cur.z-prev.z);
+      const now=Date.now();
+      if(delta>22 && now-lastShake>1200 && !rolling){lastShake=now; roll()}
+    }
+    prev=cur;
+  }
+  async function enableMotion(){
+    audio();
+    try{
+      if(typeof DeviceMotionEvent!=='undefined' && typeof DeviceMotionEvent.requestPermission==='function'){
+        const r=await DeviceMotionEvent.requestPermission();
+        if(r!=='granted') throw new Error('denied');
+      }
+      if(!motionOn){window.addEventListener('devicemotion',onMotion); motionOn=true}
+      $('motionTxt').textContent='흔들기 모드 ON';
+      $('hint').textContent='이제 폰을 세게 한 번 흔들어봐. 반응 없으면 버튼이나 주사위를 눌러도 돼.';
+    }catch(err){
+      $('motionTxt').textContent='흔들기 사용 불가';
+      $('hint').textContent='이 화면에선 흔들기 센서가 막혀 있어. 주사위나 굴리기 버튼을 눌러줘.';
+    }
+  }
+  $('motionBtn').onclick=enableMotion;
+  if(typeof DeviceMotionEvent!=='undefined' && typeof DeviceMotionEvent.requestPermission!=='function'){
+    window.addEventListener('devicemotion',onMotion); motionOn=true;
+  }
+
+  // ---------- copy ----------
+  function toast(msg){const t=$('toast'); t.textContent=msg; t.hidden=false; clearTimeout(toast._t); toast._t=setTimeout(()=>t.hidden=true,1600)}
+  $('copyBtn').onclick=()=>{
+    const num='010-5198-1500';
+    try{navigator.clipboard.writeText(num).then(()=>toast('번호 복사됨: '+num),()=>toast(num))}catch(e){toast(num)}
+  };
+
+  // ---------- personal stats ----------
+  let best=parseInt(lsGet('ld_best')||'0',10)||0, lucky=parseInt(lsGet('ld_lucky')||'0',10)||0;
+  if(best) $('sBest').textContent=best; $('sSix').textContent=lucky;
+  function saveVisit(total,jackpot){
+    if(total>best){best=total; lsSet('ld_best',String(best)); $('sBest').textContent=best}
+    if(jackpot){lucky++; lsSet('ld_lucky',String(lucky)); $('sSix').textContent=lucky}
+  }
+})();
+</script>
+
+</body>
+</html>
