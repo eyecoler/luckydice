@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#040d0a">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='14' fill='%23fbf6ea' stroke='%23b8862b' stroke-width='4'/%3E%3Ccircle cx='20' cy='20' r='6' fill='%2316110c'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23b3122a'/%3E%3Ccircle cx='44' cy='44' r='6' fill='%2316110c'/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="thumb.png">
+<link rel="apple-touch-icon" href="icon-180.png">
 
 <title>럭키 다이스</title>
 <meta property="og:title" content="럭키 다이스">
@@ -223,6 +223,31 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-2);outline-off
 .history i:first-child{background:var(--foil);background-size:200% 100%;color:var(--ink);border-style:solid;border-color:var(--gold-4)}
 .history .empty{font-size:12px;color:rgba(166,184,174,.6)}
 
+/* ── install ── */
+.install{
+  appearance:none;cursor:pointer;margin-top:18px;width:100%;
+  display:flex;align-items:center;gap:14px;text-align:left;
+  padding:14px 16px;border-radius:16px;color:var(--text);
+  background:linear-gradient(180deg,rgba(0,0,0,.42),rgba(0,0,0,.28));
+  border:1px solid var(--hair);
+}
+.install .ic{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--foil);background-size:200% 100%;box-shadow:0 0 0 1px var(--gold-4)}
+.install .ic svg{width:22px;height:22px}
+.install b{display:block;font:700 16px var(--serif-ko);color:var(--gold-1)}
+.install small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.sheet-bg{position:fixed;inset:0;z-index:10;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
+.sheet{
+  width:100%;max-width:500px;box-sizing:border-box;
+  padding:22px 20px calc(20px + env(safe-area-inset-bottom,0px));
+  background:linear-gradient(180deg,#0f3326,#06140f);border-top:1px solid var(--gold-3);
+  border-radius:22px 22px 0 0;display:flex;flex-direction:column;gap:14px;
+}
+.sheet h2{margin:0;font:800 21px var(--serif-ko);color:var(--gold-1)}
+.sheet ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px;line-height:1.55}
+.sheet li b{color:var(--gold-1)}
+.sheet .go{display:block;text-align:center;text-decoration:none;font:700 16px var(--serif-ko);color:var(--ink);background:var(--foil);background-size:200% 100%;padding:14px;border-radius:999px}
+.sheet .close{align-self:center}
+
 /* ── footbar ── */
 .foot{
   position:fixed;left:0;right:0;bottom:0;z-index:5;
@@ -249,9 +274,11 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-2);outline-off
   .table.shaking .dice-row,.big.pop,.title h1,.roll-btn::after{animation:none}
 }
 </style>
-<!-- 이용자 수 집계: goatcounter.com 가입 후 아래 줄의 주석을 풀고 YOURCODE를 본인 코드로 바꾸기
-<script data-goatcounter="https://YOURCODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
--->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="럭키다이스">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 
@@ -322,10 +349,14 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-2);outline-off
   </section>
 
   <div class="stats">
+    <div class="stat"><b id="sUsers">–</b><span>이용자 수</span></div>
+    <div class="stat"><b id="sRolls">–</b><span>전체 굴림</span></div>
     <div class="stat"><b id="sMine">0</b><span>내 굴림</span></div>
-    <div class="stat"><b id="sBest">–</b><span>최고 숫자</span></div>
-    <div class="stat"><b id="sSix">0</b><span>행운 횟수</span></div>
   </div>
+  <button class="install" id="installBtn" type="button">
+    <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#16110c" stroke-width="2" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg></span>
+    <span class="tx"><b>홈 화면에 앱으로 저장</b><small>다음부턴 아이콘 한 번에 바로 열려</small></span>
+  </button>
   <div class="history-wrap">
     <div class="lbl">RECENT</div>
     <div class="history" id="history" aria-label="최근 결과"><span class="empty">아직 굴린 기록이 없어</span></div>
@@ -342,6 +373,13 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-2);outline-off
   </div>
 </footer>
 <div class="toast" id="toast" hidden></div>
+<div class="sheet-bg" id="sheetBg" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <h2 id="sheetTitle">홈 화면에 저장하기</h2>
+    <div id="sheetBody"></div>
+    <button class="ghost close" id="sheetClose" type="button">닫기</button>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -515,7 +553,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-2);outline-off
       $('history').innerHTML = history.map(h=>`<i class="${h.length>1?'wide':''}">${h}</i>`).join('');
       mine++; lsSet('ld_mine',String(mine)); $('sMine').textContent=mine;
       rolling=false; $('rollBtn').disabled=false;
-      saveVisit(total,jackpot);
+      saveVisit();
     }, ROLL_MS);
   }
   $('rollBtn').onclick=roll;
@@ -561,12 +599,65 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-2);outline-off
     try{navigator.clipboard.writeText(num).then(()=>toast('번호 복사됨: '+num),()=>toast(num))}catch(e){toast(num)}
   };
 
-  // ---------- personal stats ----------
-  let best=parseInt(lsGet('ld_best')||'0',10)||0, lucky=parseInt(lsGet('ld_lucky')||'0',10)||0;
-  if(best) $('sBest').textContent=best; $('sSix').textContent=lucky;
-  function saveVisit(total,jackpot){
-    if(total>best){best=total; lsSet('ld_best',String(best)); $('sBest').textContent=best}
-    if(jackpot){lucky++; lsSet('ld_lucky',String(lucky)); $('sSix').textContent=lucky}
+  // ---------- shared counter (countapi, no signup) ----------
+  const API='https://countapi.mileshilliard.com/api/v1/';
+  const K_USERS='eyecoler-luckydice-users', K_ROLLS='eyecoler-luckydice-rolls';
+  const fmt=n=>Number(n).toLocaleString('ko-KR');
+  async function hit(key){ const r=await fetch(API+'hit/'+key,{cache:'no-store'}); if(!r.ok) throw 0; return (await r.json()).value }
+  async function getv(key){ const r=await fetch(API+'get/'+key,{cache:'no-store'}); if(r.status===404) return 0; if(!r.ok) throw 0; return (await r.json()).value }
+  (async()=>{
+    try{
+      const counted=lsGet('ld_counted');
+      const u = counted ? await getv(K_USERS) : await hit(K_USERS);
+      if(!counted) lsSet('ld_counted','1');
+      $('sUsers').textContent=fmt(u);
+    }catch(e){}
+    try{ $('sRolls').textContent=fmt(await getv(K_ROLLS)) }catch(e){}
+  })();
+  function saveVisit(){
+    hit(K_ROLLS).then(v=>{$('sRolls').textContent=fmt(v)}).catch(()=>{});
+  }
+
+  // ---------- install as app (PWA) ----------
+  const ua=navigator.userAgent||'';
+  const isIOS=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const isAndroid=/Android/i.test(ua);
+  const inApp=/KAKAOTALK|Instagram|FBAN|FBAV|Line\/|NAVER|DaumApps|everytimeApp/i.test(ua);
+  const standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
+  let deferred=null;
+  if(standalone) $('installBtn').hidden=true;
+  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault(); deferred=e});
+  window.addEventListener('appinstalled',()=>{$('installBtn').hidden=true; toast('홈 화면에 저장됐어!')});
+  const here=location.href.split('#')[0];
+  function sheet(html){$('sheetBody').innerHTML=html; $('sheetBg').hidden=false}
+  $('sheetClose').onclick=()=>{$('sheetBg').hidden=true};
+  $('sheetBg').addEventListener('click',e=>{if(e.target===$('sheetBg')) $('sheetBg').hidden=true});
+  $('installBtn').onclick=async()=>{
+    if(deferred){
+      deferred.prompt();
+      try{ const c=await deferred.userChoice; if(c&&c.outcome==='accepted') $('installBtn').hidden=true }catch(e){}
+      deferred=null; return;
+    }
+    if(inApp){
+      const ext = isAndroid
+        ? 'intent://'+here.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;end'
+        : 'kakaotalk://web/openExternal?url='+encodeURIComponent(here);
+      sheet(`<ol><li>지금은 <b>카톡 같은 앱 안의 브라우저</b>라서 바로 저장이 안 돼.</li>
+        <li>아래 버튼으로 <b>${isAndroid?'크롬':'사파리'}</b>에서 열고, 거기서 이 버튼을 다시 눌러줘.</li></ol>
+        <a class="go" href="${ext}">${isAndroid?'크롬으로':'사파리로'} 열기</a>`);
+      return;
+    }
+    if(isIOS){
+      sheet(`<ol><li>화면 아래 <b>공유 버튼</b> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e9c46a" stroke-width="2" style="vertical-align:-2px"><path d="M12 3v12M8 7l4-4 4 4M5 12v8h14v-8"/></svg> 누르기</li>
+        <li>메뉴를 올려서 <b>‘홈 화면에 추가’</b> 누르기</li>
+        <li>오른쪽 위 <b>추가</b> 누르면 끝</li></ol>`);
+      return;
+    }
+    sheet(`<ol><li>브라우저 오른쪽 위 <b>⋮ 메뉴</b> 누르기</li>
+      <li><b>‘앱 설치’</b> 또는 <b>‘홈 화면에 추가’</b> 누르기</li></ol>`);
+  };
+  if('serviceWorker' in navigator && location.protocol==='https:'){
+    window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})});
   }
 })();
 </script>
