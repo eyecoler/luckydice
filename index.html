@@ -3,373 +3,259 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#040d0a">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='14' fill='%23fbf6ea' stroke='%23b8862b' stroke-width='4'/%3E%3Ccircle cx='20' cy='20' r='6' fill='%2316110c'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23b3122a'/%3E%3Ccircle cx='44' cy='44' r='6' fill='%2316110c'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#ffd84d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23ffd84d'/%3E%3Crect x='12' y='12' width='40' height='40' rx='10' fill='%23fff' stroke='%232b1a0e' stroke-width='4'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial Black,Arial' font-weight='900' font-size='28' fill='%23ff5a36'%3E6%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="icon-180.png">
-
-<title>럭키 다이스</title>
-<meta property="og:title" content="럭키 다이스">
-<meta property="og:description" content="흔들어서 6 나오면 오늘 운 좋은 날 🎲&#10;가게 게임앱 · 체험단 · 광고 문의 010-5198-1500">
-<meta name="description" content="흔들어서 6 나오면 오늘 운 좋은 날 🎲 가게 게임앱 · 체험단 · 광고 문의 010-5198-1500">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="맛집의신">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>맛집의신</title>
+<meta property="og:title" content="맛집 · 체험의신">
+<meta property="og:description" content="흔들면 오늘의 행운 번호가 딱! 🍜&#10;가게 게임앱 · 체험단 · 광고 문의 010-5198-1500">
+<meta name="description" content="흔들면 오늘의 행운 번호가 딱! 가게 게임앱 · 체험단 · 광고 문의 010-5198-1500">
 <meta property="og:type" content="website">
-
 <meta property="og:url" content="https://eyecoler.github.io/luckydice/">
 <meta property="og:image" content="https://eyecoler.github.io/luckydice/thumb.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<style>*{box-sizing:border-box}:root{padding-top:env(safe-area-inset-top,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Nanum+Myeongjo:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap">
 <style>
+*{box-sizing:border-box}
 :root{
-  color-scheme: dark;
-  --night:#040d0a;
-  --emerald:#0b3a2c;
-  --emerald-hi:#15644b;
-  --gold-1:#fff1c1;
-  --gold-2:#e9c46a;
-  --gold-3:#b8862b;
-  --gold-4:#6e4b12;
-  --ivory:#fbf6ea;
-  --ink:#16110c;
-  --ruby:#b3122a;
-  --text:#f1ede2;
-  --muted:#a6b8ae;
-  --hair:rgba(233,196,106,.42);
-  --foil:linear-gradient(115deg,var(--gold-3) 0%,var(--gold-1) 22%,var(--gold-2) 40%,var(--gold-3) 58%,var(--gold-1) 78%,var(--gold-2) 100%);
-  --serif-en:"Cinzel","Times New Roman",serif;
-  --serif-ko:"Nanum Myeongjo","AppleMyungjo","Batang",serif;
-  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  color-scheme: light;
+  padding-top:env(safe-area-inset-top,0px);
+  --yellow:#ffd84d;
+  --yellow-deep:#ffc21a;
+  --ink:#2b1a0e;
+  --tomato:#ff5a36;
+  --cream:#fffaf0;
+  --mint:#2ec4a6;
+  --muted:#6b5a44;
+  --display:"Jua","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --body:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --sticker:0 5px 0 var(--ink);
 }
 html,body{height:100%}
 body{
-  background-color:var(--night);
-  background-image:
-    radial-gradient(ellipse 70% 45% at 50% 38%, rgba(21,100,75,.85) 0%, rgba(11,58,44,.9) 45%, rgba(4,13,10,1) 100%),
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  background-blend-mode:normal;
-  color:var(--text);
-  font-family:var(--body);
-  font-size:15px;
-  overflow-x:hidden;
+  margin:0;overflow-x:hidden;
+  background-color:var(--yellow);
+  background-image:radial-gradient(rgba(255,255,255,.55) 2px, transparent 2.5px);
+  background-size:26px 26px;
+  color:var(--ink);font-family:var(--body);font-size:15px;
 }
-body::before{ /* felt grain over the glow */
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.18;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.5'/></svg>");
-  mix-blend-mode:overlay;
-}
-.app{
-  position:relative;z-index:1;
-  min-height:100%;
-  display:flex;flex-direction:column;
-  padding-inline:16px;
-  padding-block:14px 104px;
-  max-width:500px;margin:0 auto;
-  box-sizing:border-box;
-}
+img{max-width:100%}
+[hidden]{display:none!important}
+.app{max-width:480px;margin:0 auto;padding-inline:16px;padding-block:12px 112px;display:flex;flex-direction:column;gap:14px}
+button{font-family:var(--display)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--tomato);outline-offset:3px}
 
-/* ── top bar ── */
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.flags{
-  display:flex;gap:7px;align-items:center;padding:6px 10px;border-radius:999px;
-  background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.25));
-  border:1px solid var(--hair);
-}
-.flags svg{display:block;height:17px;width:auto;border-radius:2px;box-shadow:0 0 0 .5px rgba(255,255,255,.25),0 2px 4px rgba(0,0,0,.4)}
-.flags .np{height:21px;box-shadow:none;filter:drop-shadow(0 2px 2px rgba(0,0,0,.4))}
-.ghost{
-  appearance:none;cursor:pointer;
-  border:1px solid var(--hair);background:rgba(0,0,0,.3);
-  color:var(--gold-2);font:500 12.5px var(--body);letter-spacing:.02em;
-  padding:8px 14px;border-radius:999px;white-space:nowrap;flex:none;
-  display:inline-flex;align-items:center;gap:6px;
-}
-.ghost svg{width:15px;height:15px}
-button:focus-visible,a:focus-visible{outline:2px solid var(--gold-2);outline-offset:3px}
+/* top */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{font:20px var(--display);letter-spacing:-.01em;display:flex;align-items:center;gap:6px}
+.brand i{font-style:normal;background:var(--tomato);color:#fff;border-radius:8px;padding:1px 7px;font-size:13px;border:2px solid var(--ink)}
+.chip{appearance:none;cursor:pointer;border:2.5px solid var(--ink);background:#fff;color:var(--ink);font:15px var(--display);padding:7px 13px;border-radius:999px;box-shadow:0 3px 0 var(--ink);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;flex:none}
+.chip:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.chip svg{width:16px;height:16px}
+.flags{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding:7px 8px;background:#fff;border:2.5px solid var(--ink);border-radius:14px}
+.flag{display:block;height:18px;width:auto;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.flag.np{height:21px;box-shadow:none}
 
-/* ── title ── */
-.title{text-align:center;margin-top:26px;display:flex;flex-direction:column;align-items:center;gap:8px}
-.orn{display:flex;align-items:center;gap:10px;color:var(--gold-2);font:500 10.5px var(--serif-en);letter-spacing:.42em;padding-left:.42em}
-.orn::before,.orn::after{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-2))}
-.orn::after{transform:scaleX(-1)}
-.title h1{
-  margin:0;font-family:var(--serif-ko);font-weight:800;
-  font-size:clamp(40px,12.5vw,58px);line-height:1.05;letter-spacing:-.01em;
-  background:var(--foil);background-size:220% 100%;
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 2px 0 rgba(0,0,0,.55)) drop-shadow(0 10px 22px rgba(0,0,0,.5));
-  animation:foil 7s ease-in-out infinite alternate;
-  text-wrap:balance;
-}
-@keyframes foil{from{background-position:0% 50%}to{background-position:100% 50%}}
-.title .en{font:700 12px var(--serif-en);letter-spacing:.5em;color:rgba(241,237,226,.55);padding-left:.5em}
+/* hero */
+.hero{position:relative;display:grid;grid-template-columns:132px 1fr;align-items:end;gap:6px;min-height:150px}
+.hero svg.char{width:132px;height:auto;display:block;margin-bottom:-6px}
+.bubble{position:relative;align-self:center;background:#fff;border:3px solid var(--ink);border-radius:20px;padding:12px 14px;box-shadow:var(--sticker)}
+.bubble::before{content:"";position:absolute;left:-14px;bottom:22px;border:9px solid transparent;border-right:14px solid var(--ink);border-left:0}
+.bubble::after{content:"";position:absolute;left:-8px;bottom:25px;border:6px solid transparent;border-right:10px solid #fff;border-left:0}
+.bubble h1{margin:0;font:400 clamp(30px,9vw,40px)/1 var(--display);color:var(--tomato);-webkit-text-stroke:0;text-shadow:2px 2px 0 var(--ink);letter-spacing:-.01em;text-wrap:balance}
+.bubble p{margin:6px 0 0;font:15px/1.35 var(--display);color:var(--ink)}
 
-/* ── table ── */
-.table{
-  position:relative;margin-top:24px;
-  padding:40px 18px 28px;
-  border-radius:200px 200px 26px 26px / 110px 110px 26px 26px;
-  background:
-    radial-gradient(ellipse 80% 55% at 50% 30%, rgba(30,120,90,.55), rgba(8,44,33,.2) 70%),
-    linear-gradient(180deg,rgba(9,52,39,.9),rgba(5,28,21,.95));
-  box-shadow:
-    0 0 0 1px var(--gold-3),
-    0 0 0 5px rgba(0,0,0,.55),
-    0 0 0 6px var(--gold-4),
-    0 30px 60px rgba(0,0,0,.55),
-    inset 0 0 70px rgba(0,0,0,.55);
-  display:flex;flex-direction:column;align-items:center;gap:20px;
-}
-.table::before{ /* inner hairline */
-  content:"";position:absolute;inset:9px;pointer-events:none;
-  border-radius:190px 190px 18px 18px / 102px 102px 18px 18px;
-  border:1px solid rgba(233,196,106,.22);
-}
-.corner{position:absolute;bottom:14px;width:14px;height:14px;pointer-events:none}
-.corner.l{left:14px}.corner.r{right:14px;transform:scaleX(-1)}
+/* game */
+.game{background:var(--cream);border:3px solid var(--ink);border-radius:26px;box-shadow:0 6px 0 var(--ink);padding:18px 16px 18px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.label{font:17px var(--display);background:var(--ink);color:var(--yellow);padding:4px 14px;border-radius:999px}
+.slot{position:relative;width:170px;height:170px;border-radius:32px;background:#fff;border:4px solid var(--ink);box-shadow:inset 0 -10px 0 rgba(43,26,14,.08),0 6px 0 var(--ink);display:grid;place-items:center;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.slot::before,.slot::after{content:"";position:absolute;left:0;right:0;height:26px;pointer-events:none}
+.slot::before{top:0;background:linear-gradient(#fff,rgba(255,255,255,0))}
+.slot::after{bottom:0;background:linear-gradient(rgba(255,255,255,0),#fff)}
+.num{font:400 120px/1 var(--display);color:var(--tomato);text-shadow:4px 4px 0 var(--ink);font-variant-numeric:tabular-nums}
+.num.q{color:var(--yellow-deep)}
+.num.flip{animation:flip .09s linear}
+@keyframes flip{from{transform:translateY(-40%);opacity:.3}to{transform:none;opacity:1}}
+.num.pop{animation:pop .55s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{0%{transform:scale(.3)}100%{transform:scale(1)}}
+.slot.spin{animation:wob .12s linear infinite}
+@keyframes wob{0%,100%{transform:rotate(0)}25%{transform:rotate(-2deg)}75%{transform:rotate(2deg)}}
+.pips{display:flex;gap:6px}
+.pips span{width:12px;height:12px;border-radius:50%;background:#e9dcc3;border:2px solid var(--ink)}
+.pips span.on{background:var(--tomato)}
+.msg{min-height:48px;text-align:center;font:19px/1.3 var(--display);text-wrap:balance}
+.msg small{display:block;font:14px var(--body);color:var(--muted);margin-top:2px}
 
-.dice-row{display:flex;gap:30px;justify-content:center;perspective:760px;min-height:132px;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.die-wrap{width:100px;height:100px;position:relative}
-.die-wrap::after{
-  content:"";position:absolute;left:6%;right:6%;bottom:-22px;height:16px;border-radius:50%;
-  background:radial-gradient(closest-side,rgba(0,0,0,.6),transparent);
-}
-.die{width:100%;height:100%;position:relative;transform-style:preserve-3d;transform:rotateX(-18deg) rotateY(24deg)}
-.face{
-  position:absolute;inset:0;border-radius:18px;box-sizing:border-box;padding:15px;
-  background:
-    radial-gradient(circle at 28% 22%, #ffffff 0%, rgba(255,255,255,0) 42%),
-    linear-gradient(145deg,#fffaf0 0%,var(--ivory) 45%,#e6dcc4 100%);
-  box-shadow:
-    inset 0 0 0 1.5px rgba(184,134,43,.55),
-    inset 0 0 0 4px rgba(255,255,255,.55),
-    inset 0 -8px 14px rgba(110,75,18,.16);
-  display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);
-  backface-visibility:hidden;
-}
-.pip{
-  width:17px;height:17px;border-radius:50%;align-self:center;justify-self:center;
-  background:radial-gradient(circle at 35% 30%,#4a3f36,#0d0a07 70%);
-  box-shadow:inset 0 2px 3px rgba(0,0,0,.7),0 1px 0 rgba(255,255,255,.8);
-}
-.f1 .pip{width:26px;height:26px;background:radial-gradient(circle at 35% 30%,#ff5a6e,var(--ruby) 55%,#5b0612);box-shadow:inset 0 2px 4px rgba(0,0,0,.45),0 1px 0 rgba(255,255,255,.8),0 0 0 2px rgba(184,134,43,.5)}
-.f1{transform:translateZ(50px)}
-.f6{transform:rotateY(180deg) translateZ(50px)}
-.f3{transform:rotateY(90deg) translateZ(50px)}
-.f4{transform:rotateY(-90deg) translateZ(50px)}
-.f2{transform:rotateX(90deg) translateZ(50px)}
-.f5{transform:rotateX(-90deg) translateZ(50px)}
+.big-btn{appearance:none;cursor:pointer;width:100%;border:3px solid var(--ink);border-radius:20px;padding:16px 16px;font:24px var(--display);display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 6px 0 var(--ink);transition:transform .08s}
+.big-btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink)}
+.big-btn:disabled{filter:saturate(.4);opacity:.75;cursor:default}
+.big-btn svg{width:30px;height:30px;flex:none}
+.shake{background:var(--tomato);color:#fff;padding-block:20px;font-size:27px;text-shadow:1px 1px 0 var(--ink)}
+.shake small{display:block;font:14px var(--body);text-shadow:none;opacity:.95}
+.shake.on{background:var(--mint);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.02)}}
+.shake .tx{text-align:left;line-height:1.15}
+.tap{background:#fff;color:var(--ink)}
+.hint{margin:0;font-size:13.5px;color:var(--muted);text-align:center;line-height:1.5}
 
-.status{text-align:center;min-height:104px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
-.big{
-  font-family:var(--serif-en);font-weight:900;font-size:84px;line-height:1;
-  font-variant-numeric:tabular-nums lining-nums;
-  background:var(--foil);background-size:200% 100%;
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 3px 0 rgba(0,0,0,.6)) drop-shadow(0 0 22px rgba(233,196,106,.28));
-}
-.big.pop{animation:pop .6s cubic-bezier(.2,1.5,.4,1), foil 2.4s ease-in-out}
-@keyframes pop{0%{transform:scale(.3);opacity:0}100%{transform:scale(1);opacity:1}}
-.sub{color:var(--muted);font-size:13px;letter-spacing:.02em}
-.sub.win{color:var(--gold-1);font-family:var(--serif-ko);font-weight:700;font-size:16px}
-.table.shaking .dice-row{animation:shake .11s linear infinite}
-@keyframes shake{0%{transform:translate(0,0)}25%{transform:translate(-2px,1px)}50%{transform:translate(2px,-1px)}75%{transform:translate(-1px,-2px)}100%{transform:translate(0,0)}}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:#fff;border:2.5px solid var(--ink);border-radius:16px;padding:10px 4px;text-align:center;box-shadow:0 3px 0 var(--ink)}
+.stat b{display:block;font:26px var(--display);font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--muted)}
+.stat.hi{background:var(--tomato);color:#fff}
+.stat.hi span{color:#fff}
+.history{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;min-height:34px;align-items:center}
+.history i{font-style:normal;font:17px var(--display);width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#fff;border:2.5px solid var(--ink)}
+.history i:first-child{background:var(--tomato);color:#fff}
+.history .empty{font-size:13px;color:var(--muted)}
 
-.controls{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%}
-.seg{display:inline-flex;padding:3px;border:1px solid var(--hair);border-radius:999px;background:rgba(0,0,0,.35)}
-.seg button{appearance:none;border:0;background:transparent;color:var(--muted);font:500 13px var(--body);padding:7px 16px;border-radius:999px;cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--foil);background-size:200% 100%;color:var(--ink);font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.35)}
-.roll-btn{
-  position:relative;overflow:hidden;
-  appearance:none;border:0;cursor:pointer;width:100%;max-width:300px;
-  font:700 19px var(--serif-ko);letter-spacing:.12em;color:var(--ink);
-  padding:17px 20px;border-radius:999px;
-  background:var(--foil);background-size:220% 100%;background-position:30% 50%;
-  box-shadow:0 0 0 1px var(--gold-4), 0 0 0 4px rgba(0,0,0,.35), 0 0 0 5px rgba(233,196,106,.35), 0 14px 30px rgba(0,0,0,.5);
-  transition:transform .12s, background-position .6s;
-  display:flex;align-items:center;justify-content:center;gap:10px;
-}
-.roll-btn svg{width:20px;height:20px}
-.roll-btn::after{ /* light sweep */
-  content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;
-  background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);
-  transform:skewX(-20deg);animation:sweep 3.6s ease-in-out infinite;
-}
-@keyframes sweep{0%,60%{left:-60%}100%{left:130%}}
-.roll-btn:hover{background-position:70% 50%}
-.roll-btn:active{transform:translateY(2px) scale(.99)}
-.roll-btn:disabled{cursor:default;filter:saturate(.5) brightness(.75)}
-.roll-btn:disabled::after{animation:none}
-.hint{font-size:12px;color:var(--muted);text-align:center;max-width:30ch;line-height:1.55;margin:0}
-
-/* ── stats ── */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:22px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
-.stat{text-align:center;padding:14px 6px}
-.stat + .stat{border-left:1px solid rgba(233,196,106,.2)}
-.stat b{display:block;font:700 24px var(--serif-en);color:var(--gold-1);font-variant-numeric:tabular-nums lining-nums}
-.stat span{font-size:11px;color:var(--muted);letter-spacing:.08em}
-.history-wrap{margin-top:16px;display:flex;flex-direction:column;align-items:center;gap:8px}
-.history-wrap .lbl{font:500 10px var(--serif-en);letter-spacing:.36em;color:rgba(233,196,106,.7);padding-left:.36em}
-.history{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;min-height:30px}
-.history i{
-  font-style:normal;font:700 13px var(--serif-en);font-variant-numeric:tabular-nums lining-nums;
-  color:var(--gold-2);min-width:30px;height:30px;padding:0 6px;box-sizing:border-box;
-  display:grid;place-items:center;border-radius:50%;
-  border:1px dashed rgba(233,196,106,.55);background:rgba(0,0,0,.3);
-}
-.history i.wide{border-radius:15px}
-.history i:first-child{background:var(--foil);background-size:200% 100%;color:var(--ink);border-style:solid;border-color:var(--gold-4)}
-.history .empty{font-size:12px;color:rgba(166,184,174,.6)}
-
-/* ── install ── */
-.install{
-  appearance:none;cursor:pointer;margin-top:18px;width:100%;
-  display:flex;align-items:center;gap:14px;text-align:left;
-  padding:14px 16px;border-radius:16px;color:var(--text);
-  background:linear-gradient(180deg,rgba(0,0,0,.42),rgba(0,0,0,.28));
-  border:1px solid var(--hair);
-}
-.install .ic{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--foil);background-size:200% 100%;box-shadow:0 0 0 1px var(--gold-4)}
+.install{appearance:none;cursor:pointer;width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;border-radius:18px;background:#fff;border:2.5px solid var(--ink);box-shadow:0 4px 0 var(--ink);color:var(--ink)}
+.install .ic{flex:none;width:44px;height:44px;border-radius:12px;background:var(--yellow);border:2.5px solid var(--ink);display:grid;place-items:center}
 .install .ic svg{width:22px;height:22px}
-.install b{display:block;font:700 16px var(--serif-ko);color:var(--gold-1)}
-.install small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
-.sheet-bg{position:fixed;inset:0;z-index:10;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
-.sheet{
-  width:100%;max-width:500px;box-sizing:border-box;
-  padding:22px 20px calc(20px + env(safe-area-inset-bottom,0px));
-  background:linear-gradient(180deg,#0f3326,#06140f);border-top:1px solid var(--gold-3);
-  border-radius:22px 22px 0 0;display:flex;flex-direction:column;gap:14px;
-}
-.sheet h2{margin:0;font:800 21px var(--serif-ko);color:var(--gold-1)}
-.sheet ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px;line-height:1.55}
-.sheet li b{color:var(--gold-1)}
-.sheet .go{display:block;text-align:center;text-decoration:none;font:700 16px var(--serif-ko);color:var(--ink);background:var(--foil);background-size:200% 100%;padding:14px;border-radius:999px}
-.sheet .close{align-self:center}
+.install b{display:block;font:18px var(--display)}
+.install small{display:block;font:13px var(--body);color:var(--muted)}
 
-/* ── footbar ── */
-.foot{
-  position:fixed;left:0;right:0;bottom:0;z-index:5;
-  padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));
-  background:linear-gradient(180deg,rgba(6,16,12,.88),rgba(2,8,6,.97));
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  border-top:1px solid var(--hair);
-}
-.foot-in{max-width:500px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.dev{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--text);min-width:0}
-.coin{
-  flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
-  background:var(--foil);background-size:200% 100%;
-  box-shadow:0 0 0 1px var(--gold-4),inset 0 0 0 3px rgba(255,255,255,.25),0 4px 10px rgba(0,0,0,.4);
-}
-.coin svg{width:19px;height:19px}
-.dev small{display:block;font-size:11px;line-height:1.35;color:var(--muted);letter-spacing:.01em;word-break:keep-all}
-.dev strong{display:block;font:700 17px var(--serif-en);letter-spacing:.04em;color:var(--gold-1);font-variant-numeric:tabular-nums lining-nums;user-select:all}
+/* footbar */
+.foot{position:fixed;left:0;right:0;bottom:0;z-index:5;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--ink);color:#fff}
+.foot-in{max-width:480px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.dev{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;min-width:0}
+.coin{flex:none;width:42px;height:42px;border-radius:50%;background:var(--yellow);border:2.5px solid #fff;display:grid;place-items:center}
+.coin svg{width:20px;height:20px}
+.dev small{display:block;font:12px var(--body);color:#ffe9a8;word-break:keep-all;line-height:1.3}
+.dev strong{display:block;font:21px var(--display);letter-spacing:.02em;font-variant-numeric:tabular-nums;user-select:all}
+.foot .chip{box-shadow:none;border-color:#fff}
 
 #fx{position:fixed;inset:0;pointer-events:none;z-index:4;width:100%;height:100%}
-.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:var(--ivory);color:var(--ink);font:600 13px var(--body);padding:9px 16px;border-radius:999px;z-index:6;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:#fff;color:var(--ink);border:2.5px solid var(--ink);font:15px var(--display);padding:8px 16px;border-radius:999px;z-index:6;white-space:nowrap}
+.sheet-bg{position:fixed;inset:0;z-index:10;background:rgba(43,26,14,.55);display:flex;align-items:flex-end;justify-content:center}
+.sheet{width:100%;max-width:480px;padding:22px 20px calc(20px + env(safe-area-inset-bottom,0px));background:var(--cream);border-top:3px solid var(--ink);border-radius:24px 24px 0 0;display:flex;flex-direction:column;gap:14px}
+.sheet h2{margin:0;font:24px var(--display)}
+.sheet ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:10px;line-height:1.55;font-size:16px}
+.sheet .go{display:block;text-align:center;text-decoration:none;font:20px var(--display);color:#fff;background:var(--tomato);border:3px solid var(--ink);padding:13px;border-radius:999px;box-shadow:0 4px 0 var(--ink)}
+.sheet .chip{align-self:center}
 
-@media (prefers-reduced-motion: reduce){
-  .table.shaking .dice-row,.big.pop,.title h1,.roll-btn::after{animation:none}
-}
+@media (prefers-reduced-motion: reduce){.slot.spin,.num.flip,.num.pop,.shake.on{animation:none}}
 </style>
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="럭키다이스">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
-
 <canvas id="fx" aria-hidden="true"></canvas>
-
 <div class="app">
   <header class="top">
-    <div class="flags" aria-label="대한민국, 네팔, 캄보디아 국기">
-      <svg viewBox="-36 -24 72 48" role="img" aria-label="대한민국">
-        <rect x="-36" y="-24" width="72" height="48" fill="#fff"/>
-        <g transform="rotate(-56.3099)">
-          <g id="tg-bars"><path id="tg-b" d="M-6-25H6M-6-22H6M-6-19H6" stroke="#000" stroke-width="2"/><use href="#tg-b" y="44"/></g>
-          <path stroke="#fff" stroke-width="1" d="M0,17v10"/>
-          <circle fill="#cd2e3a" r="12"/>
-          <path fill="#0047a0" d="M0-12A6,6 0 0 0 0,0A6,6 0 0 1 0,12A12,12 0 0 1 0-12Z"/>
-        </g>
-        <g transform="rotate(-123.6901)">
-          <use href="#tg-bars"/>
-          <path stroke="#fff" stroke-width="1" d="M0-23.5v3M0,17v3.5M0,23.5v3"/>
-        </g>
-      </svg>
-      <svg class="np" viewBox="0 0 26 32" role="img" aria-label="네팔">
-        <path d="M1 1 L24 15 H9.5 L24 30 H1 Z" fill="#dc143c" stroke="#003893" stroke-width="2"/>
-        <path d="M5 9.2a3.4 3.4 0 0 0 6.8 0a3.4 2.4 0 0 1-6.8 0z" fill="#fff"/>
-        <circle cx="8.4" cy="8.6" r="1.3" fill="#fff"/>
-        <g fill="#fff"><circle cx="8" cy="22.5" r="2.4"/>
-          <path d="M8 18.4l.7 1.6 1.6-.9-.3 1.8 1.8.3-1.3 1.3 1.3 1.3-1.8.3.3 1.8-1.6-.9L8 26.6l-.7-1.6-1.6.9.3-1.8-1.8-.3 1.3-1.3-1.3-1.3 1.8-.3-.3-1.8 1.6.9z"/></g>
-      </svg>
-      <svg viewBox="0 0 60 40" role="img" aria-label="캄보디아">
-        <rect width="60" height="40" fill="#032ea1"/>
-        <rect y="10" width="60" height="20" fill="#e00025"/>
-        <path fill="#fff" d="M16 27h28v-2h-2v-3h-2v-3l-1-1v-3l-1-2-1 2v3l-1 1v2h-2v-3l-1-1v-4l-1-3-1 3v4l-1 1v3h-2v-2l-1-1v-3l-1-2-1 2v3l-1 1v3h-2v3h-2z"/>
-      </svg>
-    </div>
-    <button class="ghost" id="soundBtn" type="button" aria-pressed="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor" stroke="none"/><path id="wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+    <div class="brand">맛집 · 체험의신 <i>GAME</i></div>
+    <button class="chip" id="soundBtn" type="button" aria-pressed="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor" stroke="none"/><path id="wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
       <span id="soundTxt">소리 ON</span>
     </button>
   </header>
 
-  <div class="title">
-    <div class="orn">GRAND CASINO</div>
-    <h1>럭키 다이스</h1>
-    <div class="en">SHAKE · ROLL · WIN</div>
-  </div>
-
-  <section class="table" id="table">
-    <div class="dice-row" id="diceRow" role="button" tabindex="0" aria-label="주사위 굴리기"></div>
-    <div class="status" aria-live="polite">
-      <div class="big" id="big">?</div>
-      <div class="sub" id="sub">폰을 흔들거나 버튼을 눌러</div>
-    </div>
-    <div class="controls">
-      <div class="seg" role="group" aria-label="주사위 개수">
-        <button type="button" id="n1" aria-pressed="true">주사위 1개</button>
-        <button type="button" id="n2" aria-pressed="false">주사위 2개</button>
-      </div>
-      <button class="roll-btn" id="rollBtn" type="button">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="#16110c" stroke-width="1.8"/><circle cx="8" cy="8" r="1.6" fill="#16110c"/><circle cx="12" cy="12" r="1.6" fill="#16110c"/><circle cx="16" cy="16" r="1.6" fill="#16110c"/></svg>
-        굴리기
-      </button>
-      <button class="ghost" id="motionBtn" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="8" y="3" width="8" height="18" rx="2"/><path d="M4 8v8M20 8v8"/></svg>
-        <span id="motionTxt">흔들기 모드 켜기</span>
-      </button>
-      <p class="hint" id="hint">흔들기 모드를 한 번 켜두면, 폰만 흔들어도 주사위가 굴러가.</p>
+  <section class="hero">
+    <svg class="char" viewBox="0 0 240 280" role="img" aria-label="맛집의신 캐릭터"><g class="girl">
+    <!-- back hair -->
+    <path d="M44 126 Q34 44 120 36 Q206 44 196 126 L200 214 Q186 232 166 220 L164 150 L76 150 L74 220 Q54 232 40 214 Z" fill="#4b2a1a"/>
+    <!-- body -->
+    <path d="M58 280 Q58 212 120 204 Q182 212 182 280 Z" fill="#ff6f4f"/>
+    <path d="M92 280 L96 226 Q120 236 144 226 L148 280 Z" fill="#fff"/>
+    <circle cx="120" cy="248" r="7" fill="#ffd23f" stroke="#3a2415" stroke-width="2.5"/>
+    <path d="M108 206 L120 222 L132 206" fill="#fff"/>
+    <!-- neck -->
+    <rect x="106" y="178" width="28" height="30" rx="10" fill="#f7c9b1"/>
+    <!-- face -->
+    <ellipse cx="120" cy="124" rx="64" ry="62" fill="#ffe1cf"/>
+    <!-- bangs -->
+    <path d="M56 118 Q52 58 120 52 Q188 58 184 118 Q172 96 156 92 Q150 106 132 104 Q128 88 118 84 Q108 100 88 98 Q84 88 78 86 Q66 100 56 118 Z" fill="#5a331f"/>
+    <!-- side locks -->
+    <path d="M56 116 Q50 150 62 176 Q70 150 66 118 Z" fill="#5a331f"/>
+    <path d="M184 116 Q190 150 178 176 Q170 150 174 118 Z" fill="#5a331f"/>
+    <!-- hairpin: little golden spoon & fork crossed -->
+    <g transform="translate(168 70) rotate(20)">
+      <rect x="-3" y="-2" width="6" height="26" rx="3" fill="#ffc21a" stroke="#3a2415" stroke-width="2"/>
+      <ellipse cx="0" cy="-8" rx="8" ry="10" fill="#ffc21a" stroke="#3a2415" stroke-width="2"/>
+    </g>
+    <!-- eyes -->
+    <g fill="#2b1a0e">
+      <ellipse cx="96" cy="132" rx="10" ry="13"/>
+      <ellipse cx="144" cy="132" rx="10" ry="13"/>
+    </g>
+    <g fill="#fff">
+      <circle cx="99.5" cy="126" r="4.2"/><circle cx="147.5" cy="126" r="4.2"/>
+      <circle cx="93" cy="138" r="2"/><circle cx="141" cy="138" r="2"/>
+    </g>
+    <path d="M84 116 q6-6 14-4M156 116 q-6-6 -14-4" stroke="#2b1a0e" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <!-- blush -->
+    <ellipse cx="80" cy="154" rx="12" ry="7" fill="#ff8f8f" opacity=".55"/>
+    <ellipse cx="160" cy="154" rx="12" ry="7" fill="#ff8f8f" opacity=".55"/>
+    <!-- mouth -->
+    <path d="M108 154 Q120 172 132 154 Z" fill="#c9383a" stroke="#2b1a0e" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M113 160 Q120 167 127 160 Q120 157 113 160 Z" fill="#ff8a80"/>
+    
+    <!-- raised arm + thumbs up (viewer's right) -->
+    <path d="M168 214 Q196 206 204 176" stroke="#ff6f4f" stroke-width="26" stroke-linecap="round" fill="none"/>
+    <g transform="translate(204 160)">
+      <rect x="-18" y="-4" width="36" height="30" rx="12" fill="#ffe1cf" stroke="#3a2415" stroke-width="3"/>
+      <rect x="-9" y="-30" width="15" height="32" rx="7.5" fill="#ffe1cf" stroke="#3a2415" stroke-width="3"/>
+      <path d="M-18 8h14M-18 16h14" stroke="#3a2415" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+  </g></svg>
+    <div class="bubble">
+      <h1>맛집의신</h1>
+      <p>흔들면 오늘의<br>행운 번호가 딱!</p>
     </div>
   </section>
 
+  <div class="flags" aria-label="대한민국, 미국, 일본, 중국, 네팔, 태국, 베트남, 캄보디아 국기"><svg class="flag" role="img" aria-label="대한민국" viewBox="-36 -24 72 48"><rect x="-36" y="-24" width="72" height="48" fill="#fff"/>
+    <g transform="rotate(-56.3099)"><g id="tgb"><path id="tgl" d="M-6-25H6M-6-22H6M-6-19H6" stroke="#000" stroke-width="2"/><use href="#tgl" y="44"/></g>
+    <path stroke="#fff" stroke-width="1" d="M0,17v10"/><circle fill="#cd2e3a" r="12"/><path fill="#0047a0" d="M0-12A6,6 0 0 0 0,0A6,6 0 0 1 0,12A12,12 0 0 1 0-12Z"/></g>
+    <g transform="rotate(-123.6901)"><use href="#tgb"/><path stroke="#fff" stroke-width="1" d="M0-23.5v3M0,17v3.5M0,23.5v3"/></g></svg><svg class="flag" role="img" aria-label="미국" viewBox="0 0 60 40"><rect y="0.000" width="60" height="3.077" fill="#b22234"/><rect y="3.077" width="60" height="3.077" fill="#fff"/><rect y="6.154" width="60" height="3.077" fill="#b22234"/><rect y="9.231" width="60" height="3.077" fill="#fff"/><rect y="12.308" width="60" height="3.077" fill="#b22234"/><rect y="15.385" width="60" height="3.077" fill="#fff"/><rect y="18.462" width="60" height="3.077" fill="#b22234"/><rect y="21.538" width="60" height="3.077" fill="#fff"/><rect y="24.615" width="60" height="3.077" fill="#b22234"/><rect y="27.692" width="60" height="3.077" fill="#fff"/><rect y="30.769" width="60" height="3.077" fill="#b22234"/><rect y="33.846" width="60" height="3.077" fill="#fff"/><rect y="36.923" width="60" height="3.077" fill="#b22234"/><rect width="26" height="21.538" fill="#3c3b6e"/><circle cx="2.4" cy="2.2" r=".9" fill="#fff"/><circle cx="6.8" cy="2.2" r=".9" fill="#fff"/><circle cx="11.2" cy="2.2" r=".9" fill="#fff"/><circle cx="15.6" cy="2.2" r=".9" fill="#fff"/><circle cx="20.0" cy="2.2" r=".9" fill="#fff"/><circle cx="24.4" cy="2.2" r=".9" fill="#fff"/><circle cx="2.4" cy="6.4" r=".9" fill="#fff"/><circle cx="6.8" cy="6.4" r=".9" fill="#fff"/><circle cx="11.2" cy="6.4" r=".9" fill="#fff"/><circle cx="15.6" cy="6.4" r=".9" fill="#fff"/><circle cx="20.0" cy="6.4" r=".9" fill="#fff"/><circle cx="24.4" cy="6.4" r=".9" fill="#fff"/><circle cx="2.4" cy="10.6" r=".9" fill="#fff"/><circle cx="6.8" cy="10.6" r=".9" fill="#fff"/><circle cx="11.2" cy="10.6" r=".9" fill="#fff"/><circle cx="15.6" cy="10.6" r=".9" fill="#fff"/><circle cx="20.0" cy="10.6" r=".9" fill="#fff"/><circle cx="24.4" cy="10.6" r=".9" fill="#fff"/><circle cx="2.4" cy="14.8" r=".9" fill="#fff"/><circle cx="6.8" cy="14.8" r=".9" fill="#fff"/><circle cx="11.2" cy="14.8" r=".9" fill="#fff"/><circle cx="15.6" cy="14.8" r=".9" fill="#fff"/><circle cx="20.0" cy="14.8" r=".9" fill="#fff"/><circle cx="24.4" cy="14.8" r=".9" fill="#fff"/><circle cx="2.4" cy="19.0" r=".9" fill="#fff"/><circle cx="6.8" cy="19.0" r=".9" fill="#fff"/><circle cx="11.2" cy="19.0" r=".9" fill="#fff"/><circle cx="15.6" cy="19.0" r=".9" fill="#fff"/><circle cx="20.0" cy="19.0" r=".9" fill="#fff"/><circle cx="24.4" cy="19.0" r=".9" fill="#fff"/></svg><svg class="flag" role="img" aria-label="일본" viewBox="0 0 60 40"><rect width="60" height="40" fill="#fff"/><circle cx="30" cy="20" r="12" fill="#bc002d"/></svg><svg class="flag" role="img" aria-label="중국" viewBox="0 0 60 40"><rect width="60" height="40" fill="#de2910"/><polygon points="10.00,4.00 11.41,8.06 15.71,8.15 12.28,10.74 13.53,14.85 10.00,12.40 6.47,14.85 7.72,10.74 4.29,8.15 8.59,8.06" fill="#ffde00"/><polygon points="21.00,2.27 20.73,3.67 21.96,4.42 20.54,4.59 20.21,5.99 19.60,4.69 18.17,4.81 19.22,3.83 18.66,2.51 19.92,3.20" fill="#ffde00"/><polygon points="24.35,6.03 24.58,7.44 25.98,7.72 24.71,8.38 24.88,9.80 23.86,8.79 22.56,9.39 23.21,8.11 22.23,7.06 23.65,7.28" fill="#ffde00"/><polygon points="23.65,12.03 24.35,13.28 25.77,13.06 24.79,14.11 25.44,15.39 24.14,14.79 23.12,15.80 23.29,14.38 22.02,13.72 23.42,13.44" fill="#ffde00"/><polygon points="19.00,16.27 20.08,17.20 21.34,16.51 20.78,17.83 21.83,18.81 20.40,18.69 19.79,19.99 19.46,18.59 18.04,18.42 19.27,17.67" fill="#ffde00"/></svg><svg class="flag np" role="img" aria-label="네팔" viewBox="0 0 26 32"><path d="M1 1 L24 15 H9.5 L24 30 H1 Z" fill="#dc143c" stroke="#003893" stroke-width="2"/>
+    <path d="M5 9.2a3.4 3.4 0 0 0 6.8 0a3.4 2.4 0 0 1-6.8 0z" fill="#fff"/><circle cx="8.4" cy="8.6" r="1.3" fill="#fff"/>
+    <g fill="#fff"><circle cx="8" cy="22.5" r="2.4"/><path d="M8 18.4l.7 1.6 1.6-.9-.3 1.8 1.8.3-1.3 1.3 1.3 1.3-1.8.3.3 1.8-1.6-.9L8 26.6l-.7-1.6-1.6.9.3-1.8-1.8-.3 1.3-1.3-1.3-1.3 1.8-.3-.3-1.8 1.6.9z"/></g></svg><svg class="flag" role="img" aria-label="태국" viewBox="0 0 60 40"><rect width="60" height="40" fill="#a51931"/><rect y="6.67" width="60" height="26.67" fill="#f4f5f8"/><rect y="13.33" width="60" height="13.33" fill="#2d2a4a"/></svg><svg class="flag" role="img" aria-label="베트남" viewBox="0 0 60 40"><rect width="60" height="40" fill="#da251d"/><polygon points="30.00,8.00 32.68,16.31 41.41,16.29 34.34,21.41 37.05,29.71 30.00,24.56 22.95,29.71 25.66,21.41 18.59,16.29 27.32,16.31" fill="#ffcd00"/></svg><svg class="flag" role="img" aria-label="캄보디아" viewBox="0 0 60 40"><rect width="60" height="40" fill="#032ea1"/><rect y="10" width="60" height="20" fill="#e00025"/>
+    <path fill="#fff" d="M16 27h28v-2h-2v-3h-2v-3l-1-1v-3l-1-2-1 2v3l-1 1v2h-2v-3l-1-1v-4l-1-3-1 3v4l-1 1v3h-2v-2l-1-1v-3l-1-2-1 2v3l-1 1v3h-2v3h-2z"/></svg></div>
+
+  <section class="game" aria-label="행운 번호 뽑기">
+    <div class="label">오늘의 행운 번호</div>
+    <div class="slot" id="slot" role="button" tabindex="0" aria-label="번호 뽑기"><span class="num q" id="num">?</span></div>
+    <div class="pips" id="pips" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="msg" id="msg" aria-live="polite">1부터 6 중에 하나!<small>3초 뒤에 번호가 정해져</small></div>
+    <button class="big-btn shake" id="motionBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="8" y="3" width="8" height="18" rx="2"/><path d="M4 8v8M20 8v8M1.5 10v4M22.5 10v4"/></svg>
+      <span class="tx"><span id="motionTxt">흔들기 모드 켜기</span><small id="motionSub">한 번 켜두면 폰만 흔들어도 뽑혀</small></span>
+    </button>
+    <button class="big-btn tap" id="rollBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5l4.2.8a2 2 0 0 1 1.6 2.3l-.9 5A3 3 0 0 1 15 20.5H11a3 3 0 0 1-2.4-1.2L5.4 15a1.6 1.6 0 0 1 2.4-2.1L9 14"/></svg>
+      눌러서 뽑기
+    </button>
+    <p class="hint" id="hint">흔들기가 안 되면 버튼이나 숫자 칸을 눌러도 돼.</p>
+  </section>
+
   <div class="stats">
-    <div class="stat"><b id="sUsers">–</b><span>이용자 수</span></div>
-    <div class="stat"><b id="sRolls">–</b><span>전체 굴림</span></div>
-    <div class="stat"><b id="sMine">0</b><span>내 굴림</span></div>
+    <div class="stat hi"><b id="sUsers">–</b><span>총 이용자 수</span></div>
+    <div class="stat"><b id="sMine">0</b><span>내 뽑기</span></div>
+    <div class="stat"><b id="sRolls">–</b><span>전체 뽑기</span></div>
   </div>
+  <div class="history" id="history" aria-label="최근 번호"><span class="empty">최근 뽑은 번호가 여기 쌓여</span></div>
+
   <button class="install" id="installBtn" type="button">
-    <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#16110c" stroke-width="2" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg></span>
-    <span class="tx"><b>홈 화면에 앱으로 저장</b><small>다음부턴 아이콘 한 번에 바로 열려</small></span>
+    <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1a0e" stroke-width="2.4" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg></span>
+    <span><b>홈 화면에 앱으로 저장</b><small>다음부턴 아이콘 한 번에 바로 열려</small></span>
   </button>
-  <div class="history-wrap">
-    <div class="lbl">RECENT</div>
-    <div class="history" id="history" aria-label="최근 결과"><span class="empty">아직 굴린 기록이 없어</span></div>
-  </div>
 </div>
 
 <footer class="foot">
   <div class="foot-in">
     <a class="dev" href="tel:01051981500" aria-label="가게 게임앱 · 체험단 · 광고 문의 010-5198-1500 전화하기">
-      <span class="coin"><svg viewBox="0 0 24 24" fill="#16110c" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg></span>
+      <span class="coin"><svg viewBox="0 0 24 24" fill="#2b1a0e" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg></span>
       <span style="min-width:0"><small>가게 게임앱 · 체험단 · 광고 문의</small><strong>010-5198-1500</strong></span>
     </a>
-    <button class="ghost" id="copyBtn" type="button">번호 복사</button>
+    <button class="chip" id="copyBtn" type="button">번호 복사</button>
   </div>
 </footer>
 <div class="toast" id="toast" hidden></div>
@@ -377,290 +263,156 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-2);outline-off
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
     <h2 id="sheetTitle">홈 화면에 저장하기</h2>
     <div id="sheetBody"></div>
-    <button class="ghost close" id="sheetClose" type="button">닫기</button>
+    <button class="chip" id="sheetClose" type="button">닫기</button>
   </div>
 </div>
 
 <script>
 (function(){
-  const PIPS = {1:[5],2:[1,9],3:[1,5,9],4:[1,3,7,9],5:[1,3,5,7,9],6:[1,3,4,6,7,9]};
-  const FACE_ROT = {1:[0,0],6:[0,180],3:[0,-90],4:[0,90],2:[-90,0],5:[90,0]};
-  const reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
-  const ROLL_MS = 3000;
-  const VOLUME = 0.83; // 1.5x of previous 0.55
-
-  const $ = id => document.getElementById(id);
-  const row = $('diceRow'), big = $('big'), sub = $('sub'), table = $('table');
-  let count = 1, rolling = false, soundOn = true, dice = [];
-  let mine = 0, history = [];
-
+  const $=id=>document.getElementById(id);
+  const reduce=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const ROLL_MS=3000, VOLUME=0.83;
+  const MSGS={
+    1:['1번! 오늘은 가볍게 김밥 한 줄 🍙','소소하게 시작하는 날'],
+    2:['2번! 둘이 먹다 하나 없어져도 모를 맛 😋','같이 갈 사람 부르기'],
+    3:['3번! 삼겹살 굽기 딱 좋은 날 🥓','지글지글 각이다'],
+    4:['4번! 치킨 반반 무많이 🍗','오늘 저녁 정해짐'],
+    5:['5번! 따끈한 국물이 당기는 날 🍜','라멘? 쌀국수? 짬뽕?'],
+    6:['6번! 대박, 오늘 운 좋은 날 🎉','맛집의신이 함께해']
+  };
+  let rolling=false, soundOn=true, mine=0, history=[];
   function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
   function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
-  let deviceId = lsGet('ld_id');
-  if(!deviceId){deviceId = 'd'+Math.random().toString(36).slice(2,10)+Date.now().toString(36); lsSet('ld_id',deviceId)}
-  mine = parseInt(lsGet('ld_mine')||'0',10)||0;
-  $('sMine').textContent = mine;
-
-  // ---------- dice ----------
-  function makeDie(){
-    const wrap = document.createElement('div'); wrap.className='die-wrap';
-    const d = document.createElement('div'); d.className='die';
-    for(let n=1;n<=6;n++){
-      const f=document.createElement('div'); f.className='face f'+n;
-      for(let c=1;c<=9;c++){const cell=document.createElement('span'); if(PIPS[n].includes(c)) cell.className='pip'; f.appendChild(cell)}
-      d.appendChild(f);
-    }
-    wrap.appendChild(d); row.appendChild(wrap);
-    return {el:d, rx:-18, ry:24};
-  }
-  function buildDice(){
-    row.innerHTML=''; dice=[];
-    for(let i=0;i<count;i++) dice.push(makeDie());
-    if(count===2){dice[1].el.style.transform='rotateX(-20deg) rotateY(-28deg)'; dice[1].rx=-20; dice[1].ry=-28}
-  }
-  buildDice();
-
-  function setCount(n){
-    if(rolling) return;
-    count=n; $('n1').setAttribute('aria-pressed', n===1); $('n2').setAttribute('aria-pressed', n===2);
-    buildDice(); big.textContent='?'; sub.textContent='폰을 흔들거나 버튼을 눌러'; sub.classList.remove('win');
-  }
-  $('n1').onclick=()=>setCount(1); $('n2').onclick=()=>setCount(2);
+  mine=parseInt(lsGet('ld_mine')||'0',10)||0; $('sMine').textContent=mine;
 
   // ---------- audio ----------
   let ac=null, master=null;
-  function audio(){ try{ return audioInner() }catch(e){ return null } }
-  function audioInner(){
-    if(!ac){
-      const AC = window.AudioContext||window.webkitAudioContext; if(!AC) return null;
-      ac=new AC();
-      const comp=ac.createDynamicsCompressor();
-      comp.threshold.value=-10; comp.knee.value=6; comp.ratio.value=4;
-      master=ac.createGain(); master.gain.value=VOLUME;
-      master.connect(comp); comp.connect(ac.destination);
-    }
-    if(ac.state==='suspended'){ const p=ac.resume(); if(p&&p.catch) p.catch(()=>{}) }
-    return ac;
-  }
-  function tone(freq,t,dur,type,vol){
-    const o=ac.createOscillator(), g=ac.createGain();
-    o.type=type; o.frequency.setValueAtTime(freq,t);
-    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+.008);
-    g.gain.exponentialRampToValueAtTime(.0001,t+dur);
-    o.connect(g); g.connect(master); o.start(t); o.stop(t+dur+.02);
-  }
-  let noiseBuf=null;
-  function click(t,vol){
-    if(!noiseBuf){noiseBuf=ac.createBuffer(1,ac.sampleRate*.04,ac.sampleRate); const d=noiseBuf.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3)}
-    const s=ac.createBufferSource(), f=ac.createBiquadFilter(), g=ac.createGain();
-    s.buffer=noiseBuf; f.type='bandpass'; f.frequency.value=2500+Math.random()*2500; f.Q.value=2;
-    g.gain.value=vol; s.connect(f); f.connect(g); g.connect(master); s.start(t);
-  }
-  const hz = m => 440*Math.pow(2,(m-69)/12);
-  function playRollMusic(){
-    if(!soundOn||!audio()) return;
-    const t0=ac.currentTime+.03, step=.125;
-    const bars=[[60,64,67,72],[65,69,72,77],[67,71,74,79]];
-    const steps=Math.floor((ROLL_MS/1000)/step);
-    for(let i=0;i<steps;i++){
-      const bar=bars[Math.min(bars.length-1,Math.floor(i/8))];
-      const seq=[0,1,2,3,2,1,2,3];
-      const t=t0+i*step;
-      tone(hz(bar[seq[i%8]]+12),t,.11,'square',.05);
+  function audio(){try{
+    if(!ac){const AC=window.AudioContext||window.webkitAudioContext; if(!AC) return null;
+      ac=new AC(); const comp=ac.createDynamicsCompressor(); comp.threshold.value=-10; comp.ratio.value=4;
+      master=ac.createGain(); master.gain.value=VOLUME; master.connect(comp); comp.connect(ac.destination);}
+    if(ac.state==='suspended'){const p=ac.resume(); if(p&&p.catch)p.catch(()=>{})}
+    return ac;}catch(e){return null}}
+  function tone(f,t,d,type,v){const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(f,t);
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+    o.connect(g);g.connect(master);o.start(t);o.stop(t+d+.02)}
+  const hz=m=>440*Math.pow(2,(m-69)/12);
+  function blip(n){if(!soundOn||!audio())return; tone(hz(72+n*2),ac.currentTime,.06,'square',.06)}
+  function playBgm(){
+    if(!soundOn||!audio())return;
+    const t0=ac.currentTime+.03, step=.125, steps=Math.floor(ROLL_MS/1000/step);
+    const bars=[[60,64,67,72],[65,69,72,77],[67,71,74,79]], seq=[0,1,2,3,2,1,2,3];
+    for(let i=0;i<steps;i++){const bar=bars[Math.min(2,Math.floor(i/8))],t=t0+i*step;
       if(i%4===0) tone(hz(bar[0]-24),t,.22,'triangle',.22);
-      if(i%2===1) tone(hz(bar[2]),t,.06,'sawtooth',.018);
-      const k=Math.max(1,Math.round(3*(1-i/steps)));
-      for(let r=0;r<k;r++) click(t+Math.random()*step,.35*(1-i/steps)+.05);
-    }
+      if(i%2===1) tone(hz(bar[seq[i%8]]),t,.08,'triangle',.05);}
   }
   function playWin(big){
-    if(!soundOn||!audio()) return;
-    const t=ac.currentTime+.02;
-    [79,84,88,91].forEach((m,i)=>tone(hz(m),t+i*.08,.35,'square',.06));
-    tone(hz(96),t+.34,.9,'sine',.12); tone(hz(103),t+.34,.9,'sine',.06);
-    if(big){[91,96,100,103,108].forEach((m,i)=>tone(hz(m),t+.6+i*.07,.3,'triangle',.08))}
-    click(t,.4);
+    if(!soundOn||!audio())return; const t=ac.currentTime+.02;
+    [72,76,79,84].forEach((m,i)=>tone(hz(m),t+i*.08,.3,'square',.06));
+    tone(hz(88),t+.34,.8,'sine',.14);
+    if(big)[84,88,91,96].forEach((m,i)=>tone(hz(m),t+.6+i*.07,.3,'triangle',.09));
   }
-  $('soundBtn').onclick=()=>{
-    soundOn=!soundOn; $('soundTxt').textContent= soundOn?'소리 ON':'소리 OFF';
-    $('wave').style.opacity = soundOn?1:.15;
-    $('soundBtn').setAttribute('aria-pressed',soundOn); if(soundOn) audio();
-  };
+  $('soundBtn').onclick=()=>{soundOn=!soundOn;$('soundTxt').textContent=soundOn?'소리 ON':'소리 OFF';$('wave').style.opacity=soundOn?1:.15;$('soundBtn').setAttribute('aria-pressed',soundOn);if(soundOn)audio()};
 
-  // ---------- gold confetti ----------
-  const fx=$('fx'), ctx=fx.getContext('2d'); let parts=[], raf=0;
-  function sizeFx(){const r=window.devicePixelRatio||1; fx.width=innerWidth*r; fx.height=innerHeight*r; ctx.setTransform(r,0,0,r,0,0)}
-  sizeFx(); addEventListener('resize',sizeFx);
-  function burst(n){
-    if(reduce) return;
-    const b=big.getBoundingClientRect(), cx=b.left+b.width/2, cy=b.top+b.height/2;
-    const cols=['#fff1c1','#e9c46a','#b8862b','#fbf6ea'];
-    for(let i=0;i<n;i++){
-      const a=Math.random()*Math.PI*2, v=3+Math.random()*6;
-      parts.push({x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v-4,s:3+Math.random()*4,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[i%4],life:70+Math.random()*40});
-    }
-    if(!raf) raf=requestAnimationFrame(tick);
-  }
-  function tick(){
-    ctx.clearRect(0,0,innerWidth,innerHeight);
-    parts=parts.filter(p=>p.life>0);
-    parts.forEach(p=>{
-      p.vy+=.22; p.vx*=.985; p.x+=p.vx; p.y+=p.vy; p.r+=p.vr; p.life--;
-      ctx.save(); ctx.globalAlpha=Math.min(1,p.life/30); ctx.translate(p.x,p.y); ctx.rotate(p.r);
-      ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2); ctx.restore();
-    });
-    raf = parts.length ? requestAnimationFrame(tick) : 0;
-    if(!raf) ctx.clearRect(0,0,innerWidth,innerHeight);
-  }
+  // ---------- confetti ----------
+  const fx=$('fx'),ctx=fx.getContext('2d');let parts=[],raf=0;
+  function sizeFx(){const r=window.devicePixelRatio||1;fx.width=innerWidth*r;fx.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0)}
+  sizeFx();addEventListener('resize',sizeFx);
+  function burst(n){if(reduce)return;const b=$('slot').getBoundingClientRect(),cx=b.left+b.width/2,cy=b.top+b.height/2;
+    const cols=['#ff5a36','#2ec4a6','#ffffff','#2b1a0e','#ff8f8f','#ffc21a'];
+    for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=3+Math.random()*7;parts.push({x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v-4,s:5+Math.random()*5,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[i%cols.length],life:70+Math.random()*40})}
+    if(!raf)raf=requestAnimationFrame(tick)}
+  function tick(){ctx.clearRect(0,0,innerWidth,innerHeight);parts=parts.filter(p=>p.life>0);
+    parts.forEach(p=>{p.vy+=.22;p.vx*=.985;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life--;ctx.save();ctx.globalAlpha=Math.min(1,p.life/30);ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);ctx.restore()});
+    raf=parts.length?requestAnimationFrame(tick):0;if(!raf)ctx.clearRect(0,0,innerWidth,innerHeight)}
 
-  // ---------- roll ----------
+  // ---------- roll: numbers race, slow down, land at 3s ----------
+  const num=$('num'), pips=[...$('pips').children];
+  function show(n,cls){num.textContent=n;num.classList.remove('q','flip','pop');void num.offsetWidth;if(cls)num.classList.add(cls);
+    pips.forEach((p,i)=>p.classList.toggle('on',i<n))}
   function roll(){
-    if(rolling) return;
-    rolling=true; $('rollBtn').disabled=true;
-    try{ playRollMusic() }catch(e){}
-    const results = dice.map(()=>1+Math.floor(Math.random()*6));
-    big.classList.remove('pop'); big.textContent='3'; sub.textContent='굴러간다…'; sub.classList.remove('win');
-    table.classList.add('shaking');
-    let left=3; const cd=setInterval(()=>{left--; if(left>0) big.textContent=left;},1000);
-
-    dice.forEach((d,i)=>{
-      d.el.style.transition='none';
-      d.el.style.transform=`rotateX(${d.rx}deg) rotateY(${d.ry}deg)`;
-      void d.el.offsetWidth;
-      const [tx,ty]=FACE_ROT[results[i]];
-      const turnsX = reduce?1:(3+Math.floor(Math.random()*3)), turnsY = reduce?1:(3+Math.floor(Math.random()*3));
-      const baseX = Math.ceil(d.rx/360)*360, baseY = Math.ceil(d.ry/360)*360;
-      d.rx = baseX + turnsX*360 + tx; d.ry = baseY + turnsY*360 + ty;
-      d.el.style.transition=`transform ${ROLL_MS}ms cubic-bezier(.15,.7,.25,1)`;
-      d.el.style.transform=`rotateX(${d.rx}deg) rotateY(${d.ry}deg)`;
-    });
-
-    setTimeout(()=>{
-      clearInterval(cd); table.classList.remove('shaking');
-      const total=results.reduce((a,b)=>a+b,0);
-      const isDouble = results.length===2 && results[0]===results[1];
-      const jackpot = isDouble || total===6 && results.length===1;
-      big.textContent = total; void big.offsetWidth; big.classList.add('pop');
-      if(results.length===2){
-        sub.textContent = isDouble ? `${results[0]} · ${results[1]}  더블!` : `${results[0]} + ${results[1]}`;
-      } else {
-        sub.textContent = total===6 ? '최고 숫자, 6!' : total===1 ? '빨간 1 · 행운의 점' : '결과';
-      }
-      sub.classList.toggle('win', jackpot);
-      try{ playWin(jackpot) }catch(e){}
-      burst(jackpot?90:36);
-      history.unshift(results.length===2?`${results[0]}+${results[1]}`:String(total)); history=history.slice(0,8);
-      $('history').innerHTML = history.map(h=>`<i class="${h.length>1?'wide':''}">${h}</i>`).join('');
-      mine++; lsSet('ld_mine',String(mine)); $('sMine').textContent=mine;
-      rolling=false; $('rollBtn').disabled=false;
-      saveVisit();
-    }, ROLL_MS);
+    if(rolling)return; rolling=true; $('rollBtn').disabled=true;
+    try{playBgm()}catch(e){}
+    const result=1+Math.floor(Math.random()*6);
+    $('slot').classList.add('spin'); $('msg').innerHTML='두구두구두구…<small>번호 고르는 중</small>';
+    const start=performance.now(); let last=0;
+    (function step(){
+      const t=performance.now()-start;
+      if(t>=ROLL_MS){finish(result);return}
+      const gap=50+Math.pow(t/ROLL_MS,2.2)*300; // speeds from fast to slow
+      if(t-last>=gap){last=t;let n;do{n=1+Math.floor(Math.random()*6)}while(n==num.textContent);show(n,'flip');try{blip(n)}catch(e){}}
+      requestAnimationFrame(step);
+    })();
   }
-  $('rollBtn').onclick=roll;
-  row.addEventListener('click',roll);
-  row.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();roll()}});
+  function finish(n){
+    $('slot').classList.remove('spin'); show(n,'pop');
+    $('msg').innerHTML=MSGS[n][0]+'<small>'+MSGS[n][1]+'</small>';
+    try{playWin(n===6)}catch(e){} burst(n===6?90:34);
+    history.unshift(n);history=history.slice(0,8);$('history').innerHTML=history.map(h=>'<i>'+h+'</i>').join('');
+    mine++;lsSet('ld_mine',String(mine));$('sMine').textContent=mine;
+    rolling=false;$('rollBtn').disabled=false; saveVisit();
+  }
+  $('rollBtn').onclick=()=>{audio();roll()};
+  $('slot').addEventListener('click',()=>{audio();roll()});
+  $('slot').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();roll()}});
 
   // ---------- shake ----------
-  let lastShake=0, motionOn=false, prev=null;
-  function onMotion(e){
-    const a=e.accelerationIncludingGravity||e.acceleration; if(!a) return;
+  let lastShake=0,motionOn=false,prev=null;
+  function onMotion(e){const a=e.accelerationIncludingGravity||e.acceleration;if(!a)return;
     const cur={x:a.x||0,y:a.y||0,z:a.z||0};
-    if(prev){
-      const delta=Math.abs(cur.x-prev.x)+Math.abs(cur.y-prev.y)+Math.abs(cur.z-prev.z);
-      const now=Date.now();
-      if(delta>22 && now-lastShake>1200 && !rolling){lastShake=now; roll()}
-    }
-    prev=cur;
-  }
+    if(prev){const d=Math.abs(cur.x-prev.x)+Math.abs(cur.y-prev.y)+Math.abs(cur.z-prev.z),now=Date.now();
+      if(d>22&&now-lastShake>1200&&!rolling){lastShake=now;roll()}}
+    prev=cur}
+  function motionReady(){$('motionBtn').classList.add('on');$('motionTxt').textContent='흔들기 ON!';$('motionSub').textContent='지금 폰을 세게 한 번 흔들어봐'}
   async function enableMotion(){
     audio();
     try{
-      if(typeof DeviceMotionEvent!=='undefined' && typeof DeviceMotionEvent.requestPermission==='function'){
-        const r=await DeviceMotionEvent.requestPermission();
-        if(r!=='granted') throw new Error('denied');
-      }
-      if(!motionOn){window.addEventListener('devicemotion',onMotion); motionOn=true}
-      $('motionTxt').textContent='흔들기 모드 ON';
-      $('hint').textContent='이제 폰을 세게 한 번 흔들어봐. 반응 없으면 버튼이나 주사위를 눌러도 돼.';
-    }catch(err){
-      $('motionTxt').textContent='흔들기 사용 불가';
-      $('hint').textContent='이 화면에선 흔들기 센서가 막혀 있어. 주사위나 굴리기 버튼을 눌러줘.';
-    }
+      if(typeof DeviceMotionEvent!=='undefined'&&typeof DeviceMotionEvent.requestPermission==='function'){
+        const r=await DeviceMotionEvent.requestPermission(); if(r!=='granted')throw 0}
+      if(!motionOn){addEventListener('devicemotion',onMotion);motionOn=true}
+      motionReady();
+    }catch(e){$('motionTxt').textContent='흔들기 사용 불가';$('motionSub').textContent='아래 버튼을 눌러서 뽑아줘'}
   }
   $('motionBtn').onclick=enableMotion;
-  if(typeof DeviceMotionEvent!=='undefined' && typeof DeviceMotionEvent.requestPermission!=='function'){
-    window.addEventListener('devicemotion',onMotion); motionOn=true;
-  }
+  if(typeof DeviceMotionEvent!=='undefined'&&typeof DeviceMotionEvent.requestPermission!=='function'){addEventListener('devicemotion',onMotion);motionOn=true}
 
   // ---------- copy ----------
-  function toast(msg){const t=$('toast'); t.textContent=msg; t.hidden=false; clearTimeout(toast._t); toast._t=setTimeout(()=>t.hidden=true,1600)}
-  $('copyBtn').onclick=()=>{
-    const num='010-5198-1500';
-    try{navigator.clipboard.writeText(num).then(()=>toast('번호 복사됨: '+num),()=>toast(num))}catch(e){toast(num)}
-  };
+  function toast(m){const t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>t.hidden=true,1600)}
+  $('copyBtn').onclick=()=>{const n='010-5198-1500';try{navigator.clipboard.writeText(n).then(()=>toast('번호 복사됨: '+n),()=>toast(n))}catch(e){toast(n)}};
 
-  // ---------- shared counter (countapi, no signup) ----------
-  const API='https://countapi.mileshilliard.com/api/v1/';
-  const K_USERS='eyecoler-luckydice-users', K_ROLLS='eyecoler-luckydice-rolls';
+  // ---------- shared counter (same keys as before, so counts continue) ----------
+  const API='https://countapi.mileshilliard.com/api/v1/', K_USERS='eyecoler-luckydice-users', K_ROLLS='eyecoler-luckydice-rolls';
   const fmt=n=>Number(n).toLocaleString('ko-KR');
-  async function hit(key){ const r=await fetch(API+'hit/'+key,{cache:'no-store'}); if(!r.ok) throw 0; return (await r.json()).value }
-  async function getv(key){ const r=await fetch(API+'get/'+key,{cache:'no-store'}); if(r.status===404) return 0; if(!r.ok) throw 0; return (await r.json()).value }
+  async function hit(k){const r=await fetch(API+'hit/'+k,{cache:'no-store'});if(!r.ok)throw 0;return(await r.json()).value}
+  async function getv(k){const r=await fetch(API+'get/'+k,{cache:'no-store'});if(r.status===404)return 0;if(!r.ok)throw 0;return(await r.json()).value}
   (async()=>{
-    try{
-      const counted=lsGet('ld_counted');
-      const u = counted ? await getv(K_USERS) : await hit(K_USERS);
-      if(!counted) lsSet('ld_counted','1');
-      $('sUsers').textContent=fmt(u);
-    }catch(e){}
-    try{ $('sRolls').textContent=fmt(await getv(K_ROLLS)) }catch(e){}
+    try{const c=lsGet('ld_counted');const u=c?await getv(K_USERS):await hit(K_USERS);if(!c)lsSet('ld_counted','1');$('sUsers').textContent=fmt(u)}catch(e){}
+    try{$('sRolls').textContent=fmt(await getv(K_ROLLS))}catch(e){}
   })();
-  function saveVisit(){
-    hit(K_ROLLS).then(v=>{$('sRolls').textContent=fmt(v)}).catch(()=>{});
-  }
+  function saveVisit(){hit(K_ROLLS).then(v=>{$('sRolls').textContent=fmt(v)}).catch(()=>{})}
 
-  // ---------- install as app (PWA) ----------
+  // ---------- install (PWA) ----------
   const ua=navigator.userAgent||'';
   const isIOS=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
   const isAndroid=/Android/i.test(ua);
   const inApp=/KAKAOTALK|Instagram|FBAN|FBAV|Line\/|NAVER|DaumApps|everytimeApp/i.test(ua);
   const standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
-  let deferred=null;
-  if(standalone) $('installBtn').hidden=true;
-  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault(); deferred=e});
-  window.addEventListener('appinstalled',()=>{$('installBtn').hidden=true; toast('홈 화면에 저장됐어!')});
+  let deferred=null; if(standalone)$('installBtn').hidden=true;
+  addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e});
+  addEventListener('appinstalled',()=>{$('installBtn').hidden=true;toast('홈 화면에 저장됐어!')});
   const here=location.href.split('#')[0];
-  function sheet(html){$('sheetBody').innerHTML=html; $('sheetBg').hidden=false}
+  function sheet(h){$('sheetBody').innerHTML=h;$('sheetBg').hidden=false}
   $('sheetClose').onclick=()=>{$('sheetBg').hidden=true};
-  $('sheetBg').addEventListener('click',e=>{if(e.target===$('sheetBg')) $('sheetBg').hidden=true});
+  $('sheetBg').addEventListener('click',e=>{if(e.target===$('sheetBg'))$('sheetBg').hidden=true});
   $('installBtn').onclick=async()=>{
-    if(deferred){
-      deferred.prompt();
-      try{ const c=await deferred.userChoice; if(c&&c.outcome==='accepted') $('installBtn').hidden=true }catch(e){}
-      deferred=null; return;
-    }
-    if(inApp){
-      const ext = isAndroid
-        ? 'intent://'+here.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;end'
-        : 'kakaotalk://web/openExternal?url='+encodeURIComponent(here);
-      sheet(`<ol><li>지금은 <b>카톡 같은 앱 안의 브라우저</b>라서 바로 저장이 안 돼.</li>
-        <li>아래 버튼으로 <b>${isAndroid?'크롬':'사파리'}</b>에서 열고, 거기서 이 버튼을 다시 눌러줘.</li></ol>
-        <a class="go" href="${ext}">${isAndroid?'크롬으로':'사파리로'} 열기</a>`);
-      return;
-    }
-    if(isIOS){
-      sheet(`<ol><li>화면 아래 <b>공유 버튼</b> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e9c46a" stroke-width="2" style="vertical-align:-2px"><path d="M12 3v12M8 7l4-4 4 4M5 12v8h14v-8"/></svg> 누르기</li>
-        <li>메뉴를 올려서 <b>‘홈 화면에 추가’</b> 누르기</li>
-        <li>오른쪽 위 <b>추가</b> 누르면 끝</li></ol>`);
-      return;
-    }
-    sheet(`<ol><li>브라우저 오른쪽 위 <b>⋮ 메뉴</b> 누르기</li>
-      <li><b>‘앱 설치’</b> 또는 <b>‘홈 화면에 추가’</b> 누르기</li></ol>`);
+    if(deferred){deferred.prompt();try{const c=await deferred.userChoice;if(c&&c.outcome==='accepted')$('installBtn').hidden=true}catch(e){}deferred=null;return}
+    if(inApp){const ext=isAndroid?'intent://'+here.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;end':'kakaotalk://web/openExternal?url='+encodeURIComponent(here);
+      sheet(`<ol><li>지금은 <b>카톡 같은 앱 안의 브라우저</b>라서 바로 저장이 안 돼.</li><li>아래 버튼으로 <b>${isAndroid?'크롬':'사파리'}</b>에서 열고, 이 버튼을 다시 눌러줘.</li></ol><a class="go" href="${ext}">${isAndroid?'크롬으로':'사파리로'} 열기</a>`);return}
+    if(isIOS){sheet(`<ol><li>화면 아래 <b>공유 버튼</b> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff5a36" stroke-width="2.4" style="vertical-align:-2px"><path d="M12 3v12M8 7l4-4 4 4M5 12v8h14v-8"/></svg> 누르기</li><li>메뉴를 올려서 <b>‘홈 화면에 추가’</b> 누르기</li><li>오른쪽 위 <b>추가</b> 누르면 끝</li></ol>`);return}
+    sheet(`<ol><li>브라우저 오른쪽 위 <b>⋮ 메뉴</b> 누르기</li><li><b>‘앱 설치’</b> 또는 <b>‘홈 화면에 추가’</b> 누르기</li></ol>`);
   };
-  if('serviceWorker' in navigator && location.protocol==='https:'){
-    window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})});
-  }
+  if('serviceWorker' in navigator&&location.protocol==='https:'){addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}
 })();
 </script>
-
 </body>
 </html>
